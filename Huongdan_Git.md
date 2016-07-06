@@ -30,11 +30,14 @@ git branch -a
 
 ## Merge tu remote
 git checkout sonha
+
 git pull origin cuongbn
 
 ## Merge o local
 git checkout cuongbn
+
 git pull origin cuongbn
 
 git checkout sonha
+
 git merge cuongbn
