@@ -25,3 +25,16 @@ git push origin ten_branch_cua_minh
 #5) Xem tất cả branch
 git fetch
 git branch -a
+
+#6) Merge code (cuongbn ==> sonha)
+
+## Merge tu remote
+git checkout sonha
+git pull origin cuongbn
+
+## Merge o local
+git checkout cuongbn
+git pull origin cuongbn
+
+git checkout sonha
+git merge cuongbn
