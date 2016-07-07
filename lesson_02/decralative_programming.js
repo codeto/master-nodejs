@@ -27,3 +27,5 @@ function MyDoudled(item) {
 
 var new_doubled = numbers.map(MyDoudled);
 console.log(new_doubled);
+
+var name = 'sonha';
