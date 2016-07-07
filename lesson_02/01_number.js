@@ -17,3 +17,9 @@ var f = 'babba';
 console.log(parseInt(f));
 console.log(!f);
 console.log(isFinite(d));
+
+
+number = 0.1 + 0.6;
+number_round = round(number, 5);
+
+console.log(number_round);

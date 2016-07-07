@@ -1,8 +1,8 @@
 var string =  'dfdfdf';
 console.log(string.length);
 
-console.log(8 + 'babaa');
 console.log(8 + 3 + "babaa");
+console.log(3 + "dung");
 console.log('ressult is ' +8 + 3);
 
 console.log("hello".indexOf('l'));
@@ -16,3 +16,6 @@ var a_str = a.join(" ");
 console.log(a_str);
 
 console.log(a.trim);
+
+var x = 0xFF1;        
+console.log(x);
