@@ -21,3 +21,4 @@ function deleteStuden(){
 function editstudent(){
 
 }
+//cat ~/.ssh/id_rsa.pub
