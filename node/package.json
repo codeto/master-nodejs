@@ -1,0 +1,16 @@
+{
+  "name": "duclinh",
+  "version": "1.0.0",
+  "description": "localstore demo",
+  "main": "localstore.js",
+  "dependencies": {
+    "node-persist": "^0.0.8"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "haanhduclinh",
+  "license": "ISC"
+}
