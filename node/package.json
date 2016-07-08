@@ -1,9 +1,11 @@
 {
   "name": "duclinh",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "localstore demo",
   "main": "localstore.js",
   "dependencies": {
+    "express": "^4.14.0",
+    "express3-handlebars": "^0.5.2",
     "node-persist": "^0.0.8"
   },
   "devDependencies": {},
