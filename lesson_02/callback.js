@@ -69,3 +69,10 @@ function articles(author, date) {
 
 publish("How are you", "Simon", messages);
 publish("Make Money Online Guide", "Simon Ha", articles);
+
+// console.warn('bababa');
+// console.trace();
+
+var buf = new Buffer('Toi la Son');
+
+console.log(buf);
