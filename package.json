@@ -1,0 +1,23 @@
+{
+  "name": "master-nodejs",
+  "version": "1.0.0",
+  "description": "This is a repo to store source code for NodeJs's class in CodeTo",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codeto/master-nodejs.git"
+  },
+  "author": "Cuong Ba",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/codeto/master-nodejs/issues"
+  },
+  "homepage": "https://github.com/codeto/master-nodejs#readme",
+  "dependencies": {
+    "express": "*",
+    "q": "^1.4.1"
+  }
+}
