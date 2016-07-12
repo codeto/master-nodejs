@@ -69,3 +69,32 @@ function articles(author, date) {
 
 publish("How are you", "Simon", messages);
 publish("Make Money Online Guide", "Simon Ha", articles);
+
+// Example 5
+function printFruits(fruits){
+  for (var i = 0; i < fruits.length; i++) {
+    setTimeout( function(){
+      console.log( fruits[i] );
+    }, i * 1000 );
+  }
+}
+
+printFruits(["Lemon", "Orange", "Mango", "Banana"]);
+
+// Example 6
+
+function printFruits(fruits){
+  for (var i = 0; i < fruits.length; i++) {
+    (function(current){
+      setTimeout( function(){
+        console.log( fruits[current] );
+      }, current * 1000 );
+    })(i);
+  }
+}
+
+function sonha(param) {
+	
+}
+
+printFruits(["Lemon", "Orange", "Mango", "Banana"]);
