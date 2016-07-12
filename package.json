@@ -1,0 +1,24 @@
+{
+  "name": "master-nodejs",
+  "version": "1.0.0",
+  "description": "mota vo van thoi",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codeto/master-nodejs.git"
+  },
+  "author": "simon",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/codeto/master-nodejs/issues"
+  },
+  "homepage": "https://github.com/codeto/master-nodejs#readme",
+  "dependencies": {
+    "express": "*",
+    "mysql": "^2.11.1",
+    "q": "^1.4.1"
+  }
+}
