@@ -9,3 +9,7 @@ console.log("Noi dung file la ", content);
 console.log("Noi dung file la ", content.toString());
 console.log("Chuong trinh da ket thuc");
 
+
+var sonha = require("fs");
+var noidung = fs.readFileSync("sonha.txt");
+console.log("noi dung la ", noidung.toString());
