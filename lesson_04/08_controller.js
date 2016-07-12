@@ -1,4 +1,4 @@
-var model = require("./model.js");
+var model = require("./07_model.js");
 
 var mysql = require("mysql");
 
