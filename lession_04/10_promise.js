@@ -47,7 +47,7 @@ show(false, "Hello 1")
 .then(function(data2){
     // request lay du lieu tu DB
     console.log(data2);
-    return "data from dB"
+    return "data from dB";
 })
 .then(function(data){
     // tra du lieu ve cho client
