@@ -19,3 +19,7 @@ git add * / git add filename.extents
 git commit -m 'message'
 
 git push origin haanhduclinh
+
+#5) For remove
+
+rm -rf folder_Name
