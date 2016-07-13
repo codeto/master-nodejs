@@ -1,0 +1,14 @@
+function(err,content);
+
+this first is always error
+
+
+khi co bien this can phai de y.
+set var = this to fix
+
+* = newest in package.json
+^ = begin with
+
+unistall -g (ko vao modules folder)
+npm search install
+npm update mysql
