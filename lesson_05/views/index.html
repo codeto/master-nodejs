@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>This is Home Page</title>
+	<link rel="stylesheet" type="text/css" href="/public/css/index.css">
+	<script   src="https://code.jquery.com/jquery-1.12.4.min.js"   integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="   crossorigin="anonymous"></script>
+</head>
+<body>
+	<div class="info">Hello Codeto</div>
+	<h1>This is home page</h1>
+
+	<div>
+		<input type="button" name="get_users" class="all_users" value="Get All Users">
+	</div>
+	<table>
+		<thead>
+			<tr>
+				<td>ffg</td>
+				<td>dfdf</td>
+			</tr>
+		</thead>
+		<tbody>
+			
+		</tbody>
+	</table>
+</body>
+<script type="text/javascript">
+	$("input.all_users").click(function() {
+		$.ajax({
+			url : "http://localhost:3000/api/users",
+			dataType: 'json',
+			type : "GET",
+		}).success(function(user){
+			if(user == null) {
+				$(".message").html("Error cmnr");
+			} else {
+				var html = "";
+				for(i = 0; i < user.length; i++) {
+					html += "<tr>";
+					html += "<td>" + user[i].id + "</td>";
+					html += "<td>" + user[i].name + "</td>";
+					html += "</tr";
+				}
+				$("tbody").html(html);
+			}
+		});
+    });
+</script>
+</html>
