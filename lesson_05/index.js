@@ -27,19 +27,17 @@ var server = http.createServer(function(req, res) {
 	console.log(words);
 
 	if(words && words.length == 2) {
-		console.log("Debug 2");
+		console.log("words.length = 2");
 		var extension = words[1].toLowerCase();
-		if(extension == "css" || extension == 'js') {
-			serve_static_file('.' + req.url, res);
-		}
+	} else if(words && words.length == 3) {
+		console.log("words.length = 3");
+		var extension = words[2].toLowerCase();
+	} else {
+		console.log("Dinh dang qua di");
 	}
 
-	if(words && words.length == 3) {
-		console.log("Debug 3");
-		var extension = words[2].toLowerCase();
-		if(extension == "css" || extension == 'js') {
+	if(extension == "css" || extension == 'js') {
 			serve_static_file('.' + req.url, res);
-		}
 	}
 
 	if(req.method == "GET" && req.url == "/api/users") {
@@ -51,8 +49,8 @@ var server = http.createServer(function(req, res) {
 	}
 });
 
-function get_content_type(file) {
-	var ext = path.extname(file);
+function get_content_type(filepath) {
+	var ext = path.extname(filepath);
 	ext = ext.toLowerCase();
 	console.log("EXTENSION TYPE IS " + ext);
 
