@@ -33,10 +33,10 @@ var server = http.createServer(function(req, res) {
 	var words = req.url.split(".");
 	console.log(words);
 
-	if(words && words.length == 2) {
+	if(words && words.length == 2) {   // Link ngan
 		console.log("===words.length = 2");
 		var extension = words[1].toLowerCase();
-	} else if(words && words.length == 3) {
+	} else if(words && words.length == 3) {  // Link dai
 		console.log("===words.length = 3");
 		var extension = words[2].toLowerCase();
 	} else {
