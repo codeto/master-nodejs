@@ -33,7 +33,7 @@ var server = http.createServer(function(req, res) {
 		console.log("words.length = 3");
 		var extension = words[2].toLowerCase();
 	} else {
-		console.log("Sai dinh dang cmnr");
+		console.log("Sai dinh dang cmnr",words, words.length);
 	}
 
 	if(extension == "css" || extension == 'js') {
