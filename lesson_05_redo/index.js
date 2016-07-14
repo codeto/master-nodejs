@@ -1,7 +1,6 @@
 var http = require("http");
 var fs = require("fs");
 var path = require("path");
-var model = require("./model");
 //request 
 
 //response : tra ve ket qua cho nguoi dung, dinh nghia kieu du lieu se tra ve
@@ -12,32 +11,23 @@ var server = http.createServer(function(req, res) {
 	if(req.method == "GET" && req.url == "/") {
 		serve_static_file('views/index.html', res);
 	}
-	if(req.method == "GET" && req.url == "/api/first") {
+	if(req.method == "GET" && req.url == "/api/user") {
 		res.writeHead(200, {"Content-Type" : "application/json"});
-		var body = {
-		"status" : 200,
-		"data" : "This is body",
-		"error" : false
+		var user = {
+			"id": 1,
+			"name" : "Simon Ha",
+			"age" : 28
 		}
-		res.write(JSON.stringify(body));
+		res.write(JSON.stringify(user));
 		res.end();
 	}
 
 	var words = req.url.split(".");
-	console.log(words);
 	if(words && words.length > 1) {
-		console.log("Debug 2");
 		var extension = words[1].toLowerCase();
 		if(extension == "css") {
 			serve_static_file('.' + req.url, res);
 		}
-	}
-
-	if(req.method == "GET" && req.url == "/api/users") {
-		var users = model.getAllUsers();
-		res.writeHead(200, {"Content-Type" : "application/json"});
-		res.write(JSON.stringify(users));
-		res.end();
 	}
 });
 
@@ -58,8 +48,6 @@ function get_content_type(file) {
 }
 
 function serve_static_file(filepath, res) {
-
-	console.log("test");
 	var rs = fs.createReadStream(filepath);
 	//get content type
 	var content_type = get_content_type(filepath);
@@ -73,7 +61,6 @@ function serve_static_file(filepath, res) {
 
 	// If read file is success
 	rs.on("readable", function() {
-		console.log("readable");
 		var d = rs.read();
 		if(d) {
 			res.writeHead(200, {"Content-Type": content_type});

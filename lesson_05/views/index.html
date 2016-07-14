@@ -7,17 +7,16 @@
 	<script   src="https://code.jquery.com/jquery-1.12.4.min.js"   integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="   crossorigin="anonymous"></script>
 </head>
 <body>
-	<div class="info">Hello Codeto</div>
-	<h1>This is home page</h1>
-
+	<div class="info">Trung tam lap trinh Codeto</div>
+	<h1>Khoa hoc NodeJS can ban</h1>
 	<div>
 		<input type="button" name="get_users" class="all_users" value="Get All Users">
 	</div>
 	<table>
 		<thead>
 			<tr>
-				<td>ffg</td>
-				<td>dfdf</td>
+				<td>ID</td>
+				<td>Name</td>
 			</tr>
 		</thead>
 		<tbody>
@@ -40,7 +39,7 @@
 					html += "<tr>";
 					html += "<td>" + user[i].id + "</td>";
 					html += "<td>" + user[i].name + "</td>";
-					html += "</tr";
+					html += "</tr>";
 				}
 				$("tbody").html(html);
 			}
