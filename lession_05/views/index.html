@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset = 'utf-8' />
+		<title>HTML FILE</title>
+		<link rel='stylesheet' type='text/css' href='public/css/main.css' />
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	</head>
+	<body>
+		<p class='home'>How are you today ?</p>
+		<input type='button' name='get_users' class='all-user' value='Get All Users'>
+		<div>
+		<div class='message'></div>
+		<div class='user'></div>
+		</div>
+	</body>
+</html>
+
+<script>
+	$('.all-user').click(function(){
+		
+		$.ajax({
+			url:'http://localhost:3000/api/users',
+			data:{ },
+			type:'GET',
+			dataType:"JSON",
+			success:function(data){
+				for (var i = 0; i < data.length;i ++){
+					$('.user').append('<tr>')
+					$('.user').append('<td>'+data[i].id+'</td>')
+					$('.user').append('<td>'+data[i].name+'</td>')
+					$('.user').append('</tr>')
+				}
+
+			}
+		});
+	});
+</script>
