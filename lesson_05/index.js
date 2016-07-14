@@ -33,7 +33,7 @@ var server = http.createServer(function(req, res) {
 		console.log("words.length = 3");
 		var extension = words[2].toLowerCase();
 	} else {
-		console.log("Dinh dang qua di");
+		console.log("Sai dinh dang cmnr");
 	}
 
 	if(extension == "css" || extension == 'js') {
@@ -67,6 +67,7 @@ function get_content_type(filepath) {
 }
 
 function serve_static_file(filepath, res) {
+	console.log(filepath);
 	console.log("serve_static_file FUNCTION");
 	var rs = fs.createReadStream(filepath);
 	//get content type
