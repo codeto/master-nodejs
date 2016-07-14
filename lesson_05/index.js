@@ -3,15 +3,15 @@ var fs = require("fs");
 var path = require("path");
 var model = require("./model");
 //request 
-
 //response : tra ve ket qua cho nguoi dung, dinh nghia kieu du lieu se tra ve
 var server = http.createServer(function(req, res) {
 	console.log("Incoming Request" ,  req.method, '- ', req.url);
 
-	//Route, check truong hop url giong nhau
+	//Route, luu y phai check truong hop url giong nhau
 	if(req.method == "GET" && req.url == "/") {
 		serve_static_file('views/index.html', res);
 	}
+
 	if(req.method == "GET" && req.url == "/api/first") {
 		res.writeHead(200, {"Content-Type" : "application/json"});
 		var body = {
@@ -25,6 +25,7 @@ var server = http.createServer(function(req, res) {
 
 	var words = req.url.split(".");
 	console.log(words);
+
 	if(words && words.length == 2) {
 		console.log("Debug 2");
 		var extension = words[1].toLowerCase();
@@ -68,7 +69,6 @@ function get_content_type(file) {
 }
 
 function serve_static_file(filepath, res) {
-
 	console.log("serve_static_file FUNCTION");
 	var rs = fs.createReadStream(filepath);
 	//get content type
@@ -84,10 +84,10 @@ function serve_static_file(filepath, res) {
 	// If read file is success
 	rs.on("readable", function() {
 		console.log("readable", content_type);
-		var d = rs.read();
-		if(d) {
+		var data = rs.read();
+		if(data) {
 			res.writeHead(200, {"Content-Type": content_type});
-			res.write(d);
+			res.write(data);
 		}
 	});
 	//su kien ket thuc doc file
