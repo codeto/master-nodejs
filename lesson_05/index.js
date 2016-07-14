@@ -13,23 +13,6 @@ var connection = mysql.createConnection({
 //response : tra ve ket qua cho nguoi dung, dinh nghia kieu du lieu se tra ve
 var server = http.createServer(function(req, res) {
 	console.log("===Incoming Request" ,  req.method, '- ', req.url);
-
-	//Route, luu y phai check truong hop url giong nhau
-	if(req.method == "GET" && req.url == "/") {
-		serve_static_file('views/index.html', res);
-	}
-
-	if(req.method == "GET" && req.url == "/api/first") {
-		res.writeHead(200, {"Content-Type" : "application/json"});
-		var body = {
-		"status" : 200,
-		"data" : "This is body",
-		"error" : false
-		}
-		res.write(JSON.stringify(body));
-		res.end();
-	}
-
 	var words = req.url.split(".");
 	console.log(words);
 
@@ -45,6 +28,22 @@ var server = http.createServer(function(req, res) {
 
 	if(extension == "css" || extension == 'js') {
 			serve_static_file('.' + req.url, res);
+	}
+
+	//Route, luu y phai check truong hop url giong nhau
+	if(req.method == "GET" && req.url == "/") {
+		serve_static_file('views/index.html', res);
+	}
+
+	if(req.method == "GET" && req.url == "/api/first") {
+		res.writeHead(200, {"Content-Type" : "application/json"});
+		var body = {
+		"status" : 200,
+		"data" : "This is body",
+		"error" : false
+		}
+		res.write(JSON.stringify(body));
+		res.end();
 	}
 
 	if(req.method == "GET" && req.url == "/api1/users") {
@@ -63,6 +62,12 @@ var server = http.createServer(function(req, res) {
 			res.writeHead(200, {"Content-Type" : "application/json"});
 			res.end(JSON.stringify(rows));
 		});
+	}
+
+	if(req.method == "GET" && req.url == "/addUser") {
+		console.log("===FORM ADD USER");
+		res.writeHead(200, {"Content-Type" : "text/html"});
+		serve_static_file('views/addUser.html', res);
 	}
 });
 
