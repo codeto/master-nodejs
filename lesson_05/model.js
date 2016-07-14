@@ -2,10 +2,14 @@ var users = [
 	{
 		"id" : 1,
 		"name" : "Simon Ha",
+		"age" : 28,
+		"address" : "Thanh Xuan",
 	},
 	{
 		"id" : 2,
 		"name" : "Kevil Ba",
+		"age" : 26,
+		"address" : "Ha Noi",
 	}
 ];
 
