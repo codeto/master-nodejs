@@ -25,15 +25,24 @@ var server = http.createServer(function(req, res) {
 
 	var words = req.url.split(".");
 	console.log(words);
-	if(words && words.length > 1) {
+	if(words && words.length == 2) {
 		console.log("Debug 2");
 		var extension = words[1].toLowerCase();
-		if(extension == "css") {
+		if(extension == "css" || extension == 'js') {
+			serve_static_file('.' + req.url, res);
+		}
+	}
+
+	if(words && words.length == 3) {
+		console.log("Debug 3");
+		var extension = words[2].toLowerCase();
+		if(extension == "css" || extension == 'js') {
 			serve_static_file('.' + req.url, res);
 		}
 	}
 
 	if(req.method == "GET" && req.url == "/api/users") {
+		console.log("GET API USER");
 		var users = model.getAllUsers();
 		res.writeHead(200, {"Content-Type" : "application/json"});
 		res.write(JSON.stringify(users));
@@ -44,6 +53,7 @@ var server = http.createServer(function(req, res) {
 function get_content_type(file) {
 	var ext = path.extname(file);
 	ext = ext.toLowerCase();
+	console.log("EXTENSION TYPE IS " + ext);
 
 	switch(ext) {
 		case '.html':
@@ -59,7 +69,7 @@ function get_content_type(file) {
 
 function serve_static_file(filepath, res) {
 
-	console.log("test");
+	console.log("serve_static_file FUNCTION");
 	var rs = fs.createReadStream(filepath);
 	//get content type
 	var content_type = get_content_type(filepath);
@@ -73,7 +83,7 @@ function serve_static_file(filepath, res) {
 
 	// If read file is success
 	rs.on("readable", function() {
-		console.log("readable");
+		console.log("readable", content_type);
 		var d = rs.read();
 		if(d) {
 			res.writeHead(200, {"Content-Type": content_type});
