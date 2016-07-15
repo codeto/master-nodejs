@@ -69,6 +69,11 @@ var server = http.createServer(function(req, res) {
 		res.writeHead(200, {"Content-Type" : "text/html"});
 		serve_static_file('views/addUser.html', res);
 	}
+
+
+	if(req.method == "POST") {
+		console.log("===FORM POST USER");
+	}
 });
 
 function get_content_type(filepath) {
