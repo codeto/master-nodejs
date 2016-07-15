@@ -1,7 +1,6 @@
 var express = require("express");
 var app = express();
 var bodyParser = require('body-parser');
-
 // Create application/x-www-form-urlencoded parser
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
@@ -23,7 +22,6 @@ app.post('/', function (req, res) {
    console.log("Got a POST request for the homepage");
    res.send('Hello POST');
 })
-
 // This responds a DELETE request for the /del_user page.
 app.delete('/del_user', function (req, res) {
    console.log("Got a DELETE request for /del_user");
@@ -54,14 +52,14 @@ app.get('/process_get', function (req, res) {
    // Prepare output in JSON format
    response = {
        name:req.query.name,
-       age:req.query.age,;
+       age:req.query.age,
        address:req.query.address
    };
    console.log(response);
    res.end(JSON.stringify(response));
 })
 
-app.post('/process_post', urlencodedParser, function (req, res) {
+app.post('/process_post', function (req, res) {
    // Prepare output in JSON format
     response = {
        name:req.query.name,
