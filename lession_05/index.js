@@ -1,6 +1,7 @@
 var http = require("http");
 var fs = require("fs");
 var path = require("path");
+var url = require("url");
 
 var model = require("./model");
 
@@ -45,6 +46,41 @@ var server = http.createServer(function(req, res){
         res.writeHead(200, {"Content-Type": "application/json"});
         res.write(JSON.stringify(users));
         res.end();
+    }
+
+    // API get specify user by ID
+    var path = url.parse(req.url, true);
+    var pathname = path.pathname;
+
+    if(req.method == "GET" && pathname == "/api/user"){
+        var params = path.query;
+        console.log("params: ", params);
+
+        // Logic
+        var id = params.id;
+        var user = model.getUserById(id);
+
+        res.writeHead(200, {"Content-Type":"application/json"});
+        res.write(JSON.stringify(user));
+        res.end();
+    }
+
+    // Post
+    // body : {"id": 5, "name": "Dung Tien Cuong"}
+    if(req.method == "POST" && pathname == "/api/user/new"){
+        // Get body data from client
+        req.on("data", function(chunk){
+            var user = JSON.parse(chunk.toString());
+            model.addUser(user);
+        });
+
+        // Sent result to client
+        req.on("end", function(){
+            res.writeHead(200, {"Content-Type": "application/json"});
+            var users = model.getAllUsers();
+            res.write(JSON.stringify(users));
+            res.end();
+        });
     }
 });
 

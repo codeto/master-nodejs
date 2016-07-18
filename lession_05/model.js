@@ -27,6 +27,8 @@ function addUser(user){
     if(user){
         users.push(user);
     }
+
+    return users;
 }
 
 
