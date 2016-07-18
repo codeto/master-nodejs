@@ -1,6 +1,7 @@
 var http = require('http');
 //request object: url, method
 var fs = require('fs');
+var url = require('url');
 
 var path = require('path');
 
@@ -39,11 +40,41 @@ var server = http.createServer(function(req,res){
 	/////============api
 	if(req.method == 'GET' && req.url == '/api/users'){
 		var users = model.getAllUser();
-		res.writeHead(200,{'content_type':'Application/json'});
+		res.writeHead(200,{'content-type':'Application/json'});
 		res.write(JSON.stringify(users));
 		res.end();
 	}
+	var path = url.parse(req.url,true);
+	var pathname = path.pathname;
+	if (req.method == 'GET' && pathname == '/api/user'){
+		
+		var params = path.query;
+		
+		console.log("params:",params);
 
+		var id = params.id;
+		var user = model.getUserId(id);
+
+		res.writeHead(200,{"content-type":"Application/json"});
+		res.write(JSON.stringify(user));
+		res.end();
+	}
+
+	//post
+	//{'id':5,'name':'abc'}
+	if (req.method == "POST" && pathname =='/api/user/new'){
+		req.on('data',function(chuck){
+			var user = JSON.parse(chunk.toString());
+			model.addUser(user);
+		});
+		//sent result to client
+		req.on('end',function(){
+			res.writeHead(200,{'content-type':'Application/json'});
+			var users = model.getAllUser();
+			res.write(JSON.stringify(users));
+			res.end();
+		})
+	}
 });
 
 function get_content_type(file){
@@ -66,7 +97,7 @@ function server_static_file(filepatch,res){
 
 	// check if read if is ERROR
 	rs.on('error',function(err){
-		res.writeHead(404,{'content-type':'text/html'}).
+		res.writeHead(404,{'content-type':'text/html'});
 		res.write('<h1>error</h1>');
 		res.end();
 	});

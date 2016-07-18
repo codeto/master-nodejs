@@ -55,11 +55,11 @@ function editstudent(s_id,name,birthday,email){
 
 }
 
-addNewStudent('Duc Linh','17/08/1989','haanhduclinh@gmail.com');
-addNewStudent('Duc Linh','17/08/1989','haanhduclinh@gmail.com');
-addNewStudent('Duc Linh','17/08/1989','haanhduclinh@gmail.com');
-addNewStudent('Duc Linh','17/08/1989','haanhduclinh@gmail.com');
-addNewStudent('Duc Linh','17/08/1989','haanhduclinh@gmail.com');
+addNewStudent('Duc Linh','1/1/2999','haanhduclinh@hadl.com');
+addNewStudent('Duc Linh','1/1/2999','haanhduclinh@hadl.com');
+addNewStudent('Duc Linh','1/1/2999','haanhduclinh@hadl.com');
+addNewStudent('Duc Linh','1/1/2999','haanhduclinh@hadl.com');
+addNewStudent('Duc Linh','1/1/2999','haanhduclinh@hadl.com');
 
 var result = getAllStuDents();
 console.log(result);

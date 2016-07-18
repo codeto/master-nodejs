@@ -14,8 +14,8 @@ function getAllUser(){
 	return users;
 }
 function getUserId(Id){
-	for (var i = i;i < users.length;i++){
-		if (users[i]['id'] == Id) return users[i]['id'];
+	for (var i = 0;i < users.length;i++){
+		if (users[i]['id'] == Id) return users[i];
 		else return null;
 	}
 }
@@ -23,11 +23,13 @@ function addUser(user){
 	if(user){
 		users.push(user);
 	}
+	return users;
 }
 
 module.exports = {
 	'getAllUser':getAllUser,
 	'addUser':addUser,
+	'getUserId':getUserId,
 	'getAllUser':getAllUser
 }
 

@@ -74,6 +74,6 @@ app.post('/admin',function(req,res){
 	} else {
 		res.send('Something error');
 	} 
-})
+});
 
 app.listen(3000);
