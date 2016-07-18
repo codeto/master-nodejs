@@ -3,6 +3,7 @@ var fs = require("fs");
 var path = require("path");
 var model = require("./model");
 	mysql = require("mysql");
+	var url = require("url");
 
 var connection = mysql.createConnection({
 	user : "root",
@@ -70,10 +71,40 @@ var server = http.createServer(function(req, res) {
 		serve_static_file('views/addUser.html', res);
 	}
 
+	//API Get Specify user by ID 
+	var path = url.parse(req.url, true);// True tra ve mot doi tuong json, false la string
+	var pathname = path.pathname;
+	if(req.method == "GET" && pathname == '/api/user') {
+		var params = path.query;
+		var id = params.id;
+		var user = model.getUserById(id);
+		console.log("params : ", params);
+		res.writeHead(200, {"Content-Type": "application/json"});
+		res.end(JSON.stringify(user));
+	}
+
 
 	if(req.method == "POST") {
 		console.log("===FORM POST USER");
 	}
+
+	//POST
+	//body gui len co id : 5, name : Ha Anh Son
+	if(req.method == "POST" && pathname == '/api/user/new') {
+		req.on("data", function(chunk) {
+			console.log(chunk);
+			var user = JSON.parse(chunk.toString());
+			model.addUser(user);
+		});
+
+		// Send result to client
+		req.on("end", function(){
+			res.writeHead(200, {"Content-Type": "application/json"});
+			var users = model.getAllUsers();
+			res.end(JSON.stringify(users));
+		});
+	}
+
 });
 
 function get_content_type(filepath) {

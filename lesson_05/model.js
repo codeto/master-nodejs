@@ -30,6 +30,8 @@ function addUser(user) {
 	if(user) {
 		users.push("user");
 	}
+
+	return users;
 }
 module.exports = {
 	"getAllUsers" : getAllUsers,
