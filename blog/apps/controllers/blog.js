@@ -4,7 +4,7 @@ var router = express.Router();
 
 //localhost:3000/admin/
 router.use("/", function(req, res) {
-	res.json({"message" : "This is Blog Admin Page"});
+	res.json({"message" : "This is Blog Page"});
 });
 
 module.exports = router;
