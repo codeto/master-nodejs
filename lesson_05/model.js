@@ -28,7 +28,7 @@ function getUserById(id) {
 
 function addUser(user) {
 	if(user) {
-		users.push("user");
+		users.push(user);
 	}
 
 	return users;

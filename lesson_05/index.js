@@ -92,8 +92,11 @@ var server = http.createServer(function(req, res) {
 	//body gui len co id : 5, name : Ha Anh Son
 	if(req.method == "POST" && pathname == '/api/user/new') {
 		req.on("data", function(chunk) {
-			console.log("vao day khong ?");
+
+			console.log(chunk);
 			var user = JSON.parse(chunk.toString());
+			console.log(user);
+			console.log(typeof(user));
 			model.addUser(user);
 		});
 
