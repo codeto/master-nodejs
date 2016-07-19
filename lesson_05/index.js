@@ -2,8 +2,8 @@ var http = require("http");
 var fs = require("fs");
 var path = require("path");
 var model = require("./model");
-var mysql = require("mysql");
-var url = require("url");
+var	mysql = require("mysql");
+	var url = require("url");
 
 var connection = mysql.createConnection({
 	user : "root",
@@ -94,7 +94,6 @@ var server = http.createServer(function(req, res) {
 		req.on("data", function(chunk) {
 			console.log("vao day khong ?");
 			var user = JSON.parse(chunk.toString());
-			console.log("user la", user);
 			model.addUser(user);
 		});
 
