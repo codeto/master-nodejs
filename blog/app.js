@@ -15,6 +15,7 @@ app.use(apis);
 
 //Configurate for static file
 app.use(express.static(__dirname + "/public"));
+// app.use('/public', express.static(path.join(__dirname + '/public')));
 
 // COnfigurate for View
 app.set("views", __dirname + "/apps/views");
