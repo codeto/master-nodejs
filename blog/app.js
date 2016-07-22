@@ -1,5 +1,6 @@
 var express = require("express");
 var config = require("config");
+var mysql = require("mysql");
 
 var app = express();
 
@@ -16,6 +17,17 @@ app.use(express.static(__dirname + "/public"));
 // Configure for Views
 app.set("views", __dirname + "/apps/views");
 app.set("view engine", "ejs");
+
+// // Configure for MySQL
+// var connection = mysql.createConnection({
+//   host     : config.get("mysql.host"),
+//   port      : config.get("mysql.port"),
+//   user     : config.get("mysql.user"),
+//   password : config.get("mysql.password"),
+//   database : config.get("mysql.database")
+// });
+
+// connection.connect();
 
 var host = config.get("server.host");
 var port = config.get("server.port");
