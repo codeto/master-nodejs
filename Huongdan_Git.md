@@ -63,3 +63,6 @@ git add * / git add filename.extents
 git commit -m 'message'
 
 git push origin haanhduclinh
+bower install bootstrap --save
+npm install body-parse --save
+

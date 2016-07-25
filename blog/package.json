@@ -6,19 +6,13 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-<<<<<<< HEAD
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "bootstrap": "^3.3.6",
-=======
   "author": "Cuong Ba",
   "license": "ISC",
   "dependencies": {
->>>>>>> 9599d917df492da9c7282e82abe5bfa60b773e3b
     "config": "^1.21.0",
     "ejs": "^2.4.2",
     "express": "^4.14.0",
+    "mongodb": "^2.2.4",
     "mysql": "^2.11.1",
     "q": "^1.4.1"
   }

@@ -1,0 +1,26 @@
+{
+  "name": "blog",
+  "description": "chuan cmnr",
+  "main": "app.js",
+  "authors": [
+    "Simon"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "eo",
+    "co"
+  ],
+  "homepage": "https://github.com/codeto/master-nodejs",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/bower_libs",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.6"
+  }
+}

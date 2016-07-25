@@ -1,24 +1,7 @@
-<<<<<<< HEAD
-//File nay khong lam gi ca, ma chi co chuc nang require nhung thanh phan khac
-var express = require("express");
-var router = express.Router();
-router.use("/admin", require(__dirname+"/admin.js"));
-router.use("/blog", require(__dirname+"/blog.js"));
-//localhost:3000/
-router.get("/", function(req, res) {
-	console.log(req.url);
-	// res.json({"message" : "This is Home Page"});
-	res.render("test", {name: "Simon Ha"});// Tim trong thu muc goc
-	// res.render("admin/test");
-});
-
-// about page 
-router.get('/pages/about/', function(req, res) {
-    res.render("pages/about");
-=======
 var express = require("express");
 var router = express.Router();
 
+var user_model = require("../models/users");
 
 router.use("/admin", require(__dirname + "/admin.js"));
 router.use("/blog", require(__dirname + "/blog.js"));
@@ -27,7 +10,29 @@ router.use("/blog", require(__dirname + "/blog.js"));
 router.get("/", function(req, res){
     // res.json({"message": "This is Home Page"});
     res.render("test", {name: "Cuong Ba"});
->>>>>>> 9599d917df492da9c7282e82abe5bfa60b773e3b
+});
+
+router.get("/signup", function(req, res){
+    // res.json({"message": "This is Home Page"});
+    res.render("signup");
+});
+
+router.post("/signup", function(req, res){
+    // res.json({"message": "This is Home Page"});
+    var params = req.body;
+    console.log(params);
+
+    var user = {
+    	email : params.email,
+    	firstName : params.firstName,
+    	lastName : params.lastName,
+    	password : params.password,
+    	email : params.email
+    };
+
+    user_model.addUser(user);
+
+
 });
 
 module.exports = router;
