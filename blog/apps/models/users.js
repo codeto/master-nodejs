@@ -1,36 +1,51 @@
 var q = require("q");
-var db = require("../common/databases");
+// var db = require("../common/databases");
+// var conn = db.getConnection();
+var mongo_db = require("../common/mongo_database");
 
-var conn = db.getConnection();
+var mongo_conn = mongo_db.getConnection();
 
-// mudule.exports = function Users(connection){
-//     this.conn = connection;
-
-//     this.getAllUsers = function(){
-//         var defer = q.defer();
-//         this.conn.query('SELECT * FROM users', function(err, rows, fields) {
-//             if (err) {
-//                 defer.reject(err);
-//             }
-
-//             defer.resolve(rows);
-//         });
-
-//         return defer.promise;
-//     }
-// }
-
-// module.exports = Users();
-
-exports.getAllUsers = function(){
+function getAllUsers(){
     var defer = q.defer();
 
-    conn.query('SELECT * FROM users', function(err, rows, fields) {
-        if (err) {
-            defer.reject(err);
-        }
+    mongo_conn.then(function(db){
+        // Get the documents collection
+        var users = db.collection('users');
 
-        defer.resolve(rows);
+        var query = {};
+        // Find some documents
+        users.find(query).toArray(function(err, docs) {
+            // assert.equal(err, null);
+            // assert.equal(2, docs.length);
+
+            if(err){
+                defer.reject(err);
+            }else{
+                defer.resolve(docs);
+            }
+        });
+
+    });
+
+    return defer.promise;
+}
+
+function addUser(user){
+    var defer = q.defer();
+
+    mongo_conn.then(function(db){
+        // Get the documents collection
+        var users = db.collection('users');
+
+        // Insert new user from controller
+        users.insertOne(user, function(err, result) {
+            if(err){
+                defer.reject(err);
+            }else{
+                defer.resolve(result);
+            }
+        });
+
     });
 
     return defer.promise;
@@ -38,24 +53,26 @@ exports.getAllUsers = function(){
 
 
 
+module.exports = {
+    getAllUsers: getAllUsers,
+    addUser: addUser
+}
 
 
 
+// exports.getAllUsers = function(){
+//     var defer = q.defer();
 
+//     conn.query('SELECT * FROM users', function(err, rows, fields) {
+//         if (err) {
+//             defer.reject(err);
+//         }
 
+//         defer.resolve(rows);
+//     });
 
-
-
-
-
-
-
-
-
-
-
-
-
+//     return defer.promise;
+// }
 
 
 

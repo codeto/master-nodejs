@@ -1,6 +1,7 @@
 var express = require("express");
 var config = require("config");
-var mysql = require("mysql");
+
+var bodyParser = require("body-parser");
 
 var app = express();
 
@@ -18,16 +19,9 @@ app.use(express.static(__dirname + "/public"));
 app.set("views", __dirname + "/apps/views");
 app.set("view engine", "ejs");
 
-// // Configure for MySQL
-// var connection = mysql.createConnection({
-//   host     : config.get("mysql.host"),
-//   port      : config.get("mysql.port"),
-//   user     : config.get("mysql.user"),
-//   password : config.get("mysql.password"),
-//   database : config.get("mysql.database")
-// });
 
-// connection.connect();
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 var host = config.get("server.host");
 var port = config.get("server.port");

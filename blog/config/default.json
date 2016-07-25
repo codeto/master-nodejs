@@ -9,5 +9,10 @@
         "database": "blog_codeto",
         "user": "root",
         "password": "2Lj2UkqXymn6"
+    },
+    "mongo": {
+        "host": "localhost",
+        "port": 27017,
+        "database": "blog"
     }
 }
