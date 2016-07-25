@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
 	"server": {
 		"host": "0.0.0.0",
 		"port": 3000
@@ -11,4 +12,17 @@
 		"user": "root",
 		"password": ""
 	}
+=======
+    "server": {
+        "host": "0.0.0.0",
+        "port": 3000
+    },
+    "mysql" : {
+        "host": "localhost",
+        "port": 3307,
+        "database": "blog_codeto",
+        "user": "root",
+        "password": "2Lj2UkqXymn6"
+    }
+>>>>>>> 9599d917df492da9c7282e82abe5bfa60b773e3b
 }

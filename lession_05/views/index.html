@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="public/css/index.css">
+
+    <script   src="https://code.jquery.com/jquery-1.12.4.min.js"   integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="   crossorigin="anonymous"></script>
+</head>
+<body>
+    <h1> This is Home Page </h1>
+    <h2> Welcome to CodeTo </h2>
+
+    <div>
+        <input type="button" name="get_users" class="all_users" value="Get All Users" />
+    </div>
+
+    <div class="message"></div>
+    <div>
+        <table>
+            <thead>
+                <th> ID </th>
+                <th> Name </th>
+            </thead>
+
+            <tbody>
+
+            </tbody>
+        </table>
+    </div>
+
+
+    <script type="text/javascript">
+        $("input.all_users").click(function(){
+            $.ajax({
+              url: "http://localhost:3000/api/users?id=1",
+              method: "GET",
+              data: {  },
+              dataType: "json"
+            }).success(function(users){
+
+                if (users == null){
+                    $(".message").html("Error !!!");
+                }else{
+                    var html = "";
+                    for(var i = 0; i < users.length; i++){
+                        html += "<tr>";
+                        html += "<td> " + users[i].id + "</td>";
+                        html += "<td> " + users[i].name + "</td>";
+                        html += "</tr>";
+                    }
+
+                    $("tbody").html(html);
+                }
+            });
+
+        });
+
+    </script>
+</body>
+</html>

@@ -1,7 +1,11 @@
 {
   "name": "master-nodejs",
   "version": "1.0.0",
+<<<<<<< HEAD
   "description": "mota vo van thoi",
+=======
+  "description": "This is a repo to store source code for NodeJs's class in CodeTo",
+>>>>>>> 9599d917df492da9c7282e82abe5bfa60b773e3b
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,18 +14,26 @@
     "type": "git",
     "url": "git+https://github.com/codeto/master-nodejs.git"
   },
+<<<<<<< HEAD
   "author": "simon",
+=======
+  "author": "Cuong Ba",
+>>>>>>> 9599d917df492da9c7282e82abe5bfa60b773e3b
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/codeto/master-nodejs/issues"
   },
   "homepage": "https://github.com/codeto/master-nodejs#readme",
   "dependencies": {
+<<<<<<< HEAD
     "body-parser": "^1.15.2",
     "cookie-parser": "^1.4.3",
     "express": "*",
     "multer": "^1.1.0",
     "mysql": "^2.11.1",
+=======
+    "express": "*",
+>>>>>>> 9599d917df492da9c7282e82abe5bfa60b773e3b
     "q": "^1.4.1"
   }
 }
