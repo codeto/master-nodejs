@@ -23,16 +23,16 @@ router.get("/", function(req, res){
 });
 
 router.get("/users", function(req, res){
-	res.render("list_user");
-    // var users = users_model.getAllUsers();
+	// res.render("list_user");
+    var users = users_model.getAllUsers();
 
-    // users.then(function(data){
-    //     console.log(data);
-    //     res.render("list_user",data);
+    users.then(function(data){
+        console.log(data);
+        res.render("list_user",data);
 
-    // }).catch(function(err){
-    //     console.log("Error in get User");
-    // });
+    }).catch(function(err){
+        console.log("Error in get User");
+    });
 });
 
 module.exports = router;
