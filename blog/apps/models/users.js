@@ -82,16 +82,14 @@ function addUser(user) {
 }	
 
 function deleteUser(user) {
-	console.log("vao day ko ");
+	// console.log("vao day ko ");
 	var defer = q.defer();
 	mongo_conn.then(function(db){
 		  var users = db.collection('users');
 		  users.deleteOne(user, function(err, result) {
 		    	if(err) {
-		    		console.log("delete error");
 		    		defer.reject(err);
 		    	} else {
-		    		console.log("delete successful");
 		    		defer.resolve(result);
 		    	}
 		  });
