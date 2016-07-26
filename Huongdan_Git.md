@@ -66,3 +66,12 @@ git push origin haanhduclinh
 bower install bootstrap --save
 npm install body-parse --save
 
+
+// MONGODB GUIDE FOR NEWBIES
+1. Create database : 
+mongodb su dung : lenh use de create database, neu database da ton tai thi se su dung luon database do, neu khong thi tao moi
+2. Check database list : 
+Neu muon check list database thi dung : show dbs 
+Neu muon check database hien tai : db
+Neu database chua co ban ghi nao thi se khong the hien ra o list database, luc nay phai them it nhat 1 ban ghi thi moi show duoc
+

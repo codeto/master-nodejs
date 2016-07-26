@@ -14,13 +14,13 @@ router.get("/", function(req, res){
 
 router.get("/signup", function(req, res){
     // res.json({"message": "This is Home Page"});
-    res.render("signup");
+    res.render("signup_new");
 });
 
 router.post("/signup", function(req, res){
     // res.json({"message": "This is Home Page"});
     var params = req.body;
-    console.log(params);
+    console.log(req);
 
     var user = {
     	email : params.email,
@@ -32,7 +32,7 @@ router.post("/signup", function(req, res){
 
     user_model.addUser(user);
 
-
+    res.end(JSON.stringify(user));
 });
 
 module.exports = router;

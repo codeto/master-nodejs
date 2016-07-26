@@ -5,13 +5,15 @@ var mysql = require("mysql");
 var bodyParser =  require("body-parser");
 
 var app = express();
-
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 // Configure for Router
 var controllers = require(__dirname + "/apps/controllers");
 var apis = require(__dirname + "/apps/apis");
 
 app.use(controllers);
 app.use(apis);
+
 // Configure for Static file
 app.use(express.static(__dirname + "/public"));
 
@@ -19,7 +21,7 @@ app.use(express.static(__dirname + "/public"));
 app.set("views", __dirname + "/apps/views");
 app.set("view engine", "ejs");
 
-app.use(bodyParser.json());
+// app.use(bodyParser.json());
 
 // // Configure for MySQL
 // var connection = mysql.createConnection({

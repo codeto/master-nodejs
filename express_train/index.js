@@ -2,12 +2,13 @@ var express = require("express");
 var app = express();
 var bodyParser = require('body-parser');
 // Create application/x-www-form-urlencoded parser
-var urlencodedParser = bodyParser.urlencoded({ extended: false });
+// var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 app.use(express.static('public'));// Muon lay anh o thu muc nao thi khai bao o day
 // app.use(express.static('public/images')); Neu doi thanh nhu nay thi url se la : http://localhost:3000/01.jpg 
 // Neu dat
-
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 // Basic routing
 app.get('/', function (req, res){
   res.sendFile( __dirname + "/" + "index.html");
@@ -62,9 +63,9 @@ app.get('/formPost.html', function (req, res) {
 app.get('/process_get', function (req, res) {
    // Prepare output in JSON format
    response = {
-       name:req.query.name,
-       age:req.query.age,
-       address:req.query.address
+       name:req.body.name,
+       age:req.body.age,
+       address:req.body.address
    };
    console.log(response);
    res.end(JSON.stringify(response));
@@ -72,12 +73,13 @@ app.get('/process_get', function (req, res) {
 
 app.post('/process_post', function (req, res) {
    // Prepare output in JSON format
+   console.log(req.body);
     response = {
-       name:req.query.name,
-       age:req.query.age,
-       address:req.query.address
+       name:req.body.name,
+       age:req.body.age,
+       address:req.body.address
    };
-   console.log(response);
+   // console.log(response);  
    res.end(JSON.stringify(response));
 });
 
