@@ -31,8 +31,11 @@ router.post("/signup", function(req, res){
     };
 
     user_model.addUser(user);
-
-    res.end(JSON.stringify(user));
+    res.writeHead(301,
+        {Location: 'http://localhost:3000/admin/users'}
+    );
+    res.end();
+    // res.end(JSON.stringify(user));
 });
 
 module.exports = router;

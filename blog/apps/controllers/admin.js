@@ -26,7 +26,8 @@ router.get("/users", function(req, res){
     var users = users_model.getAllUsers();
 
     users.then(function(data){
-        console.log(typeof(data));
+        console.log(data);
+	    // res.json(data);
         res.render("list_user",{data: data});
     }).catch(function(err){
         console.log("Error in get User");
