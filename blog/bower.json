@@ -1,0 +1,20 @@
+{
+  "name": "duclinh",
+  "description": "duclinh's blog",
+  "main": "app.js",
+  "authors": [
+    "Eric Duc Linh <haanhduclinh@yahoo.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/codeto/master-nodejs",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.6"
+  }
+}

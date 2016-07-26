@@ -2,7 +2,16 @@ var express = require('express');
 
 var config = require('config');
 
+var mysql = require('mysql');
+
+
+var bodyParser = require("body-parser");
+
 var app = express();
+
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 var controllers = require(__dirname + "/apps/controllers");
 
@@ -18,7 +27,6 @@ app.use(express.static(__dirname + '/public'));
 //config for Views
 app.set('views',__dirname + "/apps/views");
 app.set('view engine','ejs');
-
 
 
 var host = config.get('server.host');

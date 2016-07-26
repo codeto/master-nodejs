@@ -1,0 +1,32 @@
+<html lang="en">
+<head>
+    <% include ../partials/header %>
+</head>
+<body>
+	<h1>Table User</h1>
+    <div class="container">
+		<table class='table table-bordered'>
+		<tr>
+				<td>Id</td>
+				<td>Username</td>
+				<td>Pass</td>
+				<td>Email</td>
+				<td>Role</td>
+				<td>Active</td>
+			</tr>
+		<% for (var i = 0; i < data.length;i++ ){%>
+			<tr>
+				<td><%= data[i].Id %></td>
+				<td><%= data[i].UserName %></td>
+				<td><%= data[i].Password %></td>
+				<td><%= data[i].admin %></td>
+				<td><%= data[i].Email %></td>
+				<td><%= data[i].role %></td>
+			</tr>
+			
+		<% } %>
+		</table>
+    </div>
+    <% include ../partials/footer %>
+</body>
+</html>
