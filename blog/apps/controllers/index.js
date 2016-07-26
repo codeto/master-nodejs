@@ -38,4 +38,17 @@ router.post("/signup", function(req, res){
     // res.end(JSON.stringify(user));
 });
 
+router.get("/delete", function(req, res){
+    console.log("vao day di ");
+    var ObjectId = require('mongodb').ObjectID;
+    var user = {
+        "_id" : new mongo.ObjectID("5796c5c5dec690dbaeec4632")
+    };
+    user_model.deleteUser(user);
+    res.writeHead(301,
+        {Location: 'http://localhost:3000/admin/users'}
+    );
+    res.end();
+});
+
 module.exports = router;
