@@ -13,6 +13,8 @@ router.get('/signup',function(req,res){
 	res.render("pages/signup");
 })
 
+var ObjectId = require('mongodb').ObjectID;
+
 router.post('/signup',function(req,res){
 	var params = req.body;
 
@@ -26,6 +28,18 @@ router.post('/signup',function(req,res){
 	//console.log(user);
 
 	users_model.addUser(user);
-	res.send('Ghi du lieu thanh cong');
+	res.send({'act':1});
+});
+
+
+router.get('/delete',function(req,res){
+
+	var user = {
+		"_id":ObjectId("579720fc3b95372f405a6756")
+	};
+	//console.log(user);
+
+	users_model.deleteUser(user);
+	res.send('Xoa Thanh Cong!');
 });
 module.exports = router;

@@ -63,3 +63,24 @@ exports.addUser = function(user){
 
 	return defer.promise;
 }
+exports.deleteUser = function(user){
+
+	var defer = q.defer();
+
+	mongo_conn.then(function(db){
+
+
+		var users = db.collection('users');
+
+		users.remove(user,function(err,result){
+			if(err){
+				defer.reject(err);
+			}else{
+				defer.resolve(result);
+			}
+		})
+		
+	});
+
+	return defer.promise;
+}

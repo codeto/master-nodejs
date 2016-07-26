@@ -30,6 +30,7 @@ router.get('/user',function(req,res){
 	users.then(function(data){
 		//console.log(data);
 		//res.json(data);
+		// console.log(data);
 		res.render("pages/user",{data:data});
 	}).catch(function(err){
 		console.log(err);
