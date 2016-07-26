@@ -82,7 +82,7 @@ function addUser(user) {
 }	
 
 function deleteUser(user) {
-	// console.log("vao day ko ");
+	console.log(user);
 	var defer = q.defer();
 	mongo_conn.then(function(db){
 		  var users = db.collection('users');

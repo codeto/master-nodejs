@@ -41,8 +41,9 @@ router.post("/signup", function(req, res){
 router.get("/delete", function(req, res){
     // var ObjectId = require('mongodb').ObjectID;
     var user = {
-        "_id" : new mongo.ObjectID("5796c5c5dec690dbaeec4632")
+        name : "Simon Ha"
     };
+    console.log(typeof(user));
     // var user = {
     //     "_id" : "5796c5c5dec690dbaeec4632"
     // };
