@@ -36,6 +36,17 @@ function show_new(err, data) {
 		}
 	});
 }
+
+
+// function simon(err, data) {
+// 	var defer = q.defer();
+// 	if(err) {
+// 		reject(err);
+// 	} else {
+// 		resolve(data);
+// 	}
+// 	return defer.promise;
+// }
 // function show(err, data) {
 // 	var defer = q.defer();
 // 	if(err) {
@@ -53,18 +64,20 @@ function show_new(err, data) {
 console.log('aaa');
 
 //. then : cach de lay data
-show_new(false, "Toi la son")
+simon(false, "Toi la son")
 .then(function(data) {
 	console.log(data);
-	return 'Day la data data 2';
+	return 'Day la data data';
 })
 .then(function(data2) {
 	console.log(data2);
-	return 'Day la data from DB';
+	return 'Day la data 2';
 })
-.then(function(data2) {
-	console.log(data2);
+.then(function(data3) {
+	console.log(data3);
 	return 'Day la data from DB';
+}).then(function(data4){
+	console.log(data4);
 })
 .catch(function(err) {
 	console.log(err);

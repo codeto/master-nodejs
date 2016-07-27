@@ -6,7 +6,6 @@ var user_model = require("../models/users");
 router.use("/admin", require(__dirname + "/admin.js"));
 router.use("/blog", require(__dirname + "/blog.js"));
 
-
 router.get("/", function(req, res){
     // res.json({"message": "This is Home Page"});
     res.render("test", {name: "Cuong Ba"});
@@ -38,20 +37,5 @@ router.post("/signup", function(req, res){
     // res.end(JSON.stringify(user));
 });
 
-router.get("/delete", function(req, res){
-    // var ObjectId = require('mongodb').ObjectID;
-    var user = {
-        name : "Simon Ha"
-    };
-    console.log(typeof(user));
-    // var user = {
-    //     "_id" : "5796c5c5dec690dbaeec4632"
-    // };
-    user_model.deleteUser(user);
-    res.writeHead(301,
-        {Location: 'http://localhost:3000/admin/users'}
-    );
-    res.end();
-});
 
 module.exports = router;

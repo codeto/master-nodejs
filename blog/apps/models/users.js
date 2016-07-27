@@ -79,21 +79,28 @@ function addUser(user) {
 		    	}
 		  });
 	});
+	return defer.promise;
 }	
 
 function deleteUser(user) {
-	console.log(user);
 	var defer = q.defer();
+
 	mongo_conn.then(function(db){
-		  var users = db.collection('users');
-		  users.deleteOne(user, function(err, result) {
-		    	if(err) {
-		    		defer.reject(err);
-		    	} else {
-		    		defer.resolve(result);
-		    	}
-		  });
+
+
+		var users = db.collection('users');
+
+		users.remove(user,function(err,result){
+			if(err){
+				defer.reject(err);
+			}else{
+				defer.resolve(result);
+			}
+		})
+		
 	});
+
+	return defer.promise;
 }	
 
 module.exports = {

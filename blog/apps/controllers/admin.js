@@ -34,4 +34,25 @@ router.get("/users", function(req, res){
     });
 });
 
+router.get("/deleteUser", function(req, res){
+    // var ObjectId = require('mongodb').ObjectID;
+    var user = {
+        email : "hasonvn@gmail.com"
+    };
+
+    // var user = {
+    //     "_id" : ObjectId("5796c5c5dec690dbaeec4632")
+    // };
+
+    console.log(typeof(user));
+    // var user = {
+    //     "_id" : "5796c5c5dec690dbaeec4632"
+    // };
+    users_model.deleteUser(user);
+    // res.writeHead(301,
+    //     {Location: 'http://localhost:3000/admin/users'}
+    // );
+    res.end();
+});
+
 module.exports = router;
