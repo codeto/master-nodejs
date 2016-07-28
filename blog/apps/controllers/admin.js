@@ -28,30 +28,23 @@ router.get("/users", function(req, res){
     users.then(function(data){
         console.log(data);
 	    // res.json(data);
-        res.render("list_user",{data: data});
+        res.render("admin/list_user",{data: data});
     }).catch(function(err){
         console.log("Error in get User");
     });
 });
 
-router.get("/deleteUser", function(req, res){
-    // var ObjectId = require('mongodb').ObjectID;
+router.get("/deleteUser/:id", function(req, res){
+    var ObjectId = require('mongodb').ObjectID;
     var user = {
-        email : "hasonvn@gmail.com"
+        _id : ObjectId(req.params.id)
     };
-
-    // var user = {
-    //     "_id" : ObjectId("5796c5c5dec690dbaeec4632")
-    // };
-
+    console.log(user);
     console.log(typeof(user));
-    // var user = {
-    //     "_id" : "5796c5c5dec690dbaeec4632"
-    // };
     users_model.deleteUser(user);
-    // res.writeHead(301,
-    //     {Location: 'http://localhost:3000/admin/users'}
-    // );
+    res.writeHead(301,
+        {Location: 'http://localhost:3000/admin/users'}
+    );
     res.end();
 });
 
