@@ -10,7 +10,7 @@ router.use('/admin',require(__dirname + "/admin.js"));
 router.use('/blog',require(__dirname + "/blog.js"));
 
 router.get('/signup',function(req,res){
-	res.render("pages/signup");
+	res.render("frontend/pages/signup");
 })
 
 var ObjectId = require('mongodb').ObjectID;
@@ -42,4 +42,8 @@ router.get('/delete',function(req,res){
 	users_model.deleteUser(user);
 	res.send('Xoa Thanh Cong!');
 });
+
+router.get('/',function(req,res){
+	res.send('This is homepage');
+})
 module.exports = router;

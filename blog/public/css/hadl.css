@@ -3,3 +3,11 @@
     top: 13%;
     left: 33%;
 	}    
+.notice{
+    position: fixed;
+    top: 54%;
+    left: 51%;
+    padding: 10px;
+    background: #cecece;
+    border-radius: 10px;
+}

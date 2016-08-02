@@ -16,3 +16,6 @@ $("#sign-up-form").submit(function(e){
 		}
 	});
 });
+$('.dl-ajax-act').click(function(){
+	var act = $(this).data("id");
+});
