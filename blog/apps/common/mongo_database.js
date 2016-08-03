@@ -18,7 +18,7 @@ function getConnection(){
     // Use connect method to connect to the Server
     MongoClient.connect(url, function(err, db) {
         assert.equal(null, err);
-        console.log("Connected correctly to server");
+        // console.log("Connected correctly to server");
 
         if(err){
             defer.reject(err);

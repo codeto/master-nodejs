@@ -2,11 +2,21 @@ var express = require("express");
 var config = require("config");
 
 var bodyParser = require("body-parser");
+var session = require("express-session");
 
 var app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.set('trust proxy', 1) // trust first proxy
+app.use(session({
+  secret: config.get("session.secret_key"),
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: true },
+  expires: 3600000
+}));
 
 // Configure for Router
 var controllers = require(__dirname + "/apps/controllers");

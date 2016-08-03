@@ -3,6 +3,18 @@ var router = express.Router();
 
 var users_model = require("../models/users");
 
+//Authentication
+// router.use(function (req, res, next) {
+//     console.log("a");
+//     console.log(req.session.user);
+//     if(req.session.user){
+//         next();
+//     }else{
+//         // res.render("signin", {data: {error: false}});
+//         res.redirect("/signin");
+//     }
+//     console.log("d");
+// });
 
 router.use("/admin", require(__dirname + "/admin.js"));
 router.use("/blog", require(__dirname + "/blog.js"));
@@ -52,7 +64,7 @@ router.post("/signup", function(req, res){
         var result = users_model.addUser(user);
 
         result.then(function(data){
-            res.render("signin");
+            res.redirect("signin");
         }).catch(function(err){
             res.render("signup", {data: {error: err}});
         });
@@ -87,7 +99,10 @@ router.post("/signin", function(req, res){
 
                 res.render("signin", {data: data});
             }else {
-                res.render("admin/home" , {data: {error: false }});
+                req.session.user = user;
+                console.log(req.session.user);
+
+                res.redirect("admin");
             }
         }
     });
