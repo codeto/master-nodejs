@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<link rel="stylesheet" type="text/css" href="bower_libs/bootstrap/dist/css/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="/css/hadl.css">
+        <link rel="stylesheet" type="text/css" href="css/hadl.css">
 		<script type="text/javascript" src="bower_libs/jquery/dist/jquery.min.js"></script>
         <script type="text/javascript" src="bower_libs/bootstrap/dist/js/bootstrap.min.js"></script>
 		
@@ -12,12 +12,15 @@
 		</style>
 	</head>
 	<body>
+    <div class="stars"></div>
+    <div class="twinkling"></div>
+    <div class="clouds"></div>
 	<center>
 		<div class="container hadl-sign-up">
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-4 well well-sm">
                     <legend><a href="http://www.haanhduclinh.com"><i class="glyphicon glyphicon-globe"></i></a> Sign up!</legend>
-                    <form action="/signup" method="post" id="sign-up-form" role="form">
+                    <form action="/signup" method="post" role="form">
                     <div class="row">
                         <div class="col-xs-6 col-md-6">
                             <input class="form-control" name="firstname" placeholder="First Name" type="text"
@@ -28,8 +31,8 @@
                         </div>
                     </div>
                     <input class="form-control" name="email" placeholder="Your Email" type="email" required />
-                    <input class="form-control" name="remail" placeholder="Re-enter Email" type="email" required/>
-                    <input class="form-control" name="password" placeholder="New Password" type="password" required/>
+                    <input class="form-control" name="password" placeholder="Password" type="password" required/>
+                    <input class="form-control" name="repassword" placeholder="Retype - Password" type="password" required/>
 
                     <label class="radio-inline">
                         <input type="radio" name="sex" id="inlineCheckbox1" value="male" />
@@ -41,8 +44,10 @@
                     </label>
                     <br />
                     <br />
-                    <button class="btn btn-lg btn-primary btn-block" type="submit">
-                    Sign up <span id='notice'></span></button>
+                     <% if(data && data.error){ %><div class="alert alert-warning fade-in"> <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <strong>Warning!</strong> <%= data.error %>  </div><% } %>
+                    <button class="btn btn-lg btn-primary btn-block" type="submit"> Sign up </button>
+                   
                     </form>
                 </div>
             </div>

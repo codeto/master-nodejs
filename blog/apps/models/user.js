@@ -69,7 +69,6 @@ exports.deleteUser = function(user){
 
 	mongo_conn.then(function(db){
 
-
 		var users = db.collection('users');
 
 		users.remove(user,function(err,result){
@@ -82,5 +81,23 @@ exports.deleteUser = function(user){
 		
 	});
 
+	return defer.promise;
+}
+exports.GetUserByEmail = function(email){
+
+	var defer = q.defer();
+
+	mongo_conn.then(function(db){
+		var users = db.collection('users');
+
+		users.find({email:email}).toArray(function(err,docs){
+			if(err){
+				defer.reject(err);
+			}else {
+				defer.resolve(docs);
+			}
+		});
+
+	});
 	return defer.promise;
 }

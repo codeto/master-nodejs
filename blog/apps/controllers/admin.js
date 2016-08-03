@@ -10,7 +10,11 @@ var users_model = require("../models/user.js");
 // localhost:3000/admin/
 router.get('/',function(req,res){
 	//res.json({'message':'This is Admin page'});
-	res.render("backend/pages/admin",{"name":"Duc Linh"});
+	res.render("backend/pages/admin");
+});
+router.get('/home',function(req,res){
+	res.json({'message':'This is Admin page'});
+	//res.render("backend/pages/admin",{data:{error:false}});
 });
 
 router.get('/users',function(req,res){

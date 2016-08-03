@@ -1,0 +1,81 @@
+<html lang="en">
+<head>
+   <% include ../partials/header %>
+    <link href="/css/hadl.css" rel="stylesheet">
+</head>
+<body>
+	
+    <div class="container">
+		<table class='table table-bordered'>
+			<thead>
+				<tr style='text-align: center;background-color: black'>
+					<td colspan="6"><h1 style="color:white">Table User</h1></td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+						<td>#</td>
+						<td>Name</td>
+						<td>Email</td>
+						<td>Gender</td>
+						<td>Pass</td>
+						<td>#</td>
+					</tr>
+				<% for (var i = 0; i < data.length;i++ ){%>
+					<tr class='<%= data[i]._id %>'>
+						<td><%= i %></td>
+						<td><%= data[i].firstname %> <%= data[i].lastname %></td>
+						<td><%= data[i].email %></td>
+						<td><%= data[i].sex %></td>
+						<td><%= data[i].password %></td>
+						<td><a href='javascript:void(0)' title='Edit' data-id='<%= data[i]._id %>' data-act='Edit' class='dl-ajax-act' ><span class="glyphicon glyphicon-new-window"  aria-hidden="true"></span></a>  <a title='Remove' data-act='Remove' href='javascript:void(0)' data-id='<%= data[i]._id %>' class='dl-ajax-act' ><span class="glyphicon glyphicon-trash"  aria-hidden="true"></span></a>  <a data-act='Add' title='Add' href='javascript:void(0)' data-id='<%= data[i]._id %>' class='dl-ajax-act' ><span class="glyphicon glyphicon-plus"  aria-hidden="true"></span></a>
+						</td>
+					</tr>
+					
+				<% } %>
+			</tbody>
+		</table>
+		<div class='notice' ></div>
+    </div>
+<div class="modal fade adduser" tabindex="-1" role="dialog">
+	<center>
+		<div class="container hadl-sign-up">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-4 well well-sm">
+                    <legend><a href="http://www.haanhduclinh.com"><i class="glyphicon glyphicon-globe"></i></a> Sign up!</legend>
+                    <form action="/signup" method="post" id="sign-up-form" role="form">
+                    <div class="row">
+                        <div class="col-xs-6 col-md-6">
+                            <input class="form-control" name="firstname" placeholder="First Name" type="text"
+                                required autofocus />
+                        </div>
+                        <div class="col-xs-6 col-md-6">
+                            <input class="form-control" name="lastname" placeholder="Last Name" type="text" required />
+                        </div>
+                    </div>
+                    <input class="form-control" name="email" placeholder="Your Email" type="email" required />
+                    <input class="form-control" name="remail" placeholder="Re-enter Email" type="email" required/>
+                    <input class="form-control" name="password" placeholder="Password" type="password" required/>
+
+                    <label class="radio-inline">
+                        <input type="radio" name="sex" id="inlineCheckbox1" value="male" />
+                        Male
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="sex" id="inlineCheckbox2" value="female" />
+                        Female
+                    </label>
+                    <br />
+                    <br />
+                    <button class="btn btn-lg btn-primary btn-block" type="submit">
+                    Sign up 
+                    <button type="button" class="btn btn-lg btn-primary btn-block" data-dismiss="modal">Close</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+	</center>
+</div><!-- /.modal -->
+    <% include ../partials/footer %>
+</body>
+</html>
