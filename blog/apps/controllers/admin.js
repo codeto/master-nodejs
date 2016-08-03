@@ -8,7 +8,8 @@ var users_model = require("../models/users");
 
 // locahost:3000/admin/
 router.get("/", function(req, res){
-    res.json({"message": "this is Admin Page"});
+    // res.json({"message": "this is Admin Page"});
+    res.render("admin/home", {data: {error: false}});
 });
 
 router.get("/users", function(req, res){

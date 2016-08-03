@@ -51,11 +51,36 @@ function addUser(user){
     return defer.promise;
 }
 
+function getUserByEmail (email){
+    // Khoi tao
+    var defer = q.defer();
+
+    mongo_conn.then(function(db){
+        //Select Collection
+        var users = db.collection("users");
+
+        //Query
+        users.find({email: email}).toArray(function(err, docs){
+            if(err){
+                // Day du lieu
+                defer.reject(err);
+            }else{
+                // Day ket qua
+                defer.resolve(docs);
+            }
+        });
+    });
+
+    // Tra lai ket qua
+    return defer.promise;
+}
+
 
 
 module.exports = {
     getAllUsers: getAllUsers,
-    addUser: addUser
+    addUser: addUser,
+    getUserByEmail: getUserByEmail
 }
 
 
