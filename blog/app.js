@@ -3,7 +3,7 @@ var config = require("config");
 var mysql = require("mysql");
 var bodyParser =  require("body-parser");
 var app = express();
-app.use(bodyParser.json());
+// app.use(bodyParser.json()); // cai nay bo cung ko sao
 app.use(bodyParser.urlencoded({ extended: true }));
 // Configure for Router
 var controllers = require(__dirname + "/apps/controllers");

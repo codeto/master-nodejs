@@ -48,4 +48,19 @@ router.get("/deleteUser/:id", function(req, res){
     res.end();
 });
 
+router.put("/updateUser/:id", function(req, res){
+    var ObjectId = require('mongodb').ObjectID;
+    var user = {
+        _id : ObjectId(req.params.id)
+    };
+    console.log(user);
+    console.log(typeof(user));
+    users_model.deleteUser(user);
+    res.writeHead(301,
+        {Location: 'http://localhost:3000/admin/users'}
+    );
+    res.end();
+});
+
+
 module.exports = router;
