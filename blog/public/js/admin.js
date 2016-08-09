@@ -43,3 +43,20 @@ $('.dl-ajax-act').click(function(){
 		$('.adduser').modal();
 	}
 });
+$('#frmpost').submit(function(e){
+	e.preventDefault();
+	var data = $(this).serialize();
+	var base_url = location.protocal + "//" + document.domain + ":" + location.port;
+
+	console.log(base_url);
+	
+	$.ajax({
+		url:'http://localhost:3000/admin/edit-post',
+		data:data,
+		type:"PUT",
+		dataType:"JSON",
+		success:function(res){
+			console.log(res);
+		}
+	})
+})

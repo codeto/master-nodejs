@@ -4,6 +4,16 @@ var router = express.Router();
 
 var users_model = require('../models/user');
 
+
+//authentical
+// app.use(function(req,res,next){
+// 	if(req.session.user){
+// 		next();
+// 	}else{
+// 		res.redirect('/login');
+// 	}
+// });
+
 var md5 = require('md5');
 
 router.use('/admin',require(__dirname + "/admin.js"));
@@ -15,7 +25,7 @@ router.get('/signup',function(req,res){
 	res.render("frontend/pages/signup",{data:{error:false}});
 })
 router.get('/login',function(req,res){
-	res.render("backend/pages/admin",{data:{error:false}});
+	res.render("backend/pages/login",{data:{error:false}});
 })
 
 router.post('/login',function(req,res){
@@ -37,6 +47,7 @@ router.post('/login',function(req,res){
 				}
 				res.render("backend/pages/admin",{data:data});
 			}else {
+				req.session.user = user;
 				res.redirect('/admin/home');
 			}
 
@@ -79,12 +90,14 @@ router.post('/signup',function(req,res){
 
 			var hash_pass = md5(params.password);
 
+			var update_time = new Date();
 			var user = {
 				email:params.email,
 				firstname:params.firstname,
 				lastname:params.lastname,
 				sex:params.sex,
-				password:hash_pass
+				password:hash_pass,
+				update_at:update_time
 			};
 			//console.log(user);
 

@@ -34,4 +34,6 @@ p {
 .hadl-span:hover {
   color: #53CACE;
 }
-
+.hadl-margin-bot{
+  margin-bottom: 10px;
+}

@@ -4,6 +4,8 @@ var config = require('config');
 
 var mysql = require('mysql');
 
+var session = require('express-session');
+
 
 var bodyParser = require("body-parser");
 
@@ -12,6 +14,15 @@ var app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.set('trust proxy',1);
+app.use(session({
+	secret:config.get('session.secret_key'),
+	resave:false,
+	saveUninitialized:true,
+	cookie:{secure:true},
+	expires:360000
+}));
 
 var controllers = require(__dirname + "/apps/controllers");
 

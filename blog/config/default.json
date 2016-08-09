@@ -15,5 +15,8 @@
 		"port":27017,
 		"database":"haanhduclinh"
 
+	},
+	"session":{
+		"secret_key":"12345"
 	}
 }
