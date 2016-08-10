@@ -85,20 +85,4 @@ module.exports = {
 
 
 
-// exports.getAllUsers = function(){
-//     var defer = q.defer();
-
-//     conn.query('SELECT * FROM users', function(err, rows, fields) {
-//         if (err) {
-//             defer.reject(err);
-//         }
-
-//         defer.resolve(rows);
-//     });
-
-//     return defer.promise;
-// }
-
-
-
 

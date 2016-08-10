@@ -42,7 +42,7 @@
                                         <a href="/admin/post/edit/<%= data.posts[i]._id%>" class="btn btn-primary">
                                             Edit
                                         </a>
-                                        <button class="btn btn-danger"> Delete </button>
+                                        <button class="btn btn-danger del_post" _id="<%= data.posts[i]._id%>"> Delete </button>
                                     </td>
                                 </tr>
                             <% } %>
@@ -54,5 +54,34 @@
         </div>
         <!-- /.panel-body -->
     </div>
+
+    <script type="text/javascript">
+        $(".del_post").click(function(e){
+            var _id = $(this).attr("_id");
+
+            var base_url = location.protocol + "//" + document.domain + ":" + location.port + "/";
+
+            $.ajax({
+                url: base_url + "admin/post/delete",
+                type: "DELETE",
+                data: {_id: _id},
+                dataType: "json",
+                success: function(response){
+                    if(response && response.status_code == 200)
+                        location.reload();
+                }
+            });
+        });
+    </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+

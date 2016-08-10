@@ -17,5 +17,10 @@
     },
     "session": {
         "secret_key": "12345"
+    },
+    "redis": {
+        "host": "localhost",
+        "port": 6379,
+        "expire_time": 3600
     }
 }

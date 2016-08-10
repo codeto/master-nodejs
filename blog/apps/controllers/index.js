@@ -1,6 +1,8 @@
 var express = require("express");
 var router = express.Router();
 
+var session = require("../common/session");
+
 var users_model = require("../models/users");
 
 //Authentication
@@ -99,8 +101,9 @@ router.post("/signin", function(req, res){
 
                 res.render("signin", {data: data});
             }else {
-                req.session.user = user;
-                console.log(req.session.user);
+                // req.session.user = user;
+                var expire = 1800;
+                session.set("user", JSON.stringify(user), expire);
 
                 res.redirect("admin");
             }

@@ -96,11 +96,39 @@ function updatePost(params){
     return defer.promise;
 }
 
+
+function deleleById(_id){
+    var defer = q.defer();
+
+    var objID = require("mongodb").ObjectID(_id);
+
+    mongo_conn.then(function(db){
+        // Get the documents collection
+        var posts = db.collection('posts');
+
+        // Insert new user from controller
+        var query = {_id: objID};
+
+        posts.deleteOne(query, function(err, result) {
+            if(err){
+                defer.reject(err);
+            }else{
+                defer.resolve(result);
+            }
+        });
+
+    });
+
+    return defer.promise;
+}
+
+
 module.exports = {
     getALlPosts: getALlPosts,
     addPost: addPost,
     getPostById: getPostById,
-    updatePost: updatePost
+    updatePost: updatePost,
+    deleleById: deleleById
 }
 
 
