@@ -4,6 +4,8 @@ var config = require("config");
 var bodyParser = require("body-parser");
 var session = require("express-session");
 
+var socketio = require("socket.io");
+
 var app = express();
 
 app.use(bodyParser.json());
@@ -36,6 +38,14 @@ app.set("view engine", "ejs");
 var host = config.get("server.host");
 var port = config.get("server.port");
 
-app.listen(port, host, function(){
+var server = app.listen(port, host, function(){
     console.log("Server is running on port ", port);
 });
+
+// Init socket
+var io = socketio(server);
+
+var socketcontrol = require("./apps/common/socketcontrol")(io);
+
+
+

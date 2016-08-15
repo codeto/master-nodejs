@@ -112,6 +112,10 @@ router.post("/signin", function(req, res){
 
 });
 
+router.get("/chat", function(req, res){
+    res.render("chat");
+});
+
 module.exports = router;
 
 

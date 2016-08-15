@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat App</title>
+</head>
+
+<%- include layout/head %>
+
+<style type="text/css">
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font: 13px Helvetica, Arial; }
+      form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 90%; }
+      form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
+      form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
+      #conversation { list-style-type: none; margin: 0; padding: 0; }
+      #conversation li { padding: 5px 10px; }
+      #conversation li:nth-child(odd) { background: #eee; }
+
+</style>
+<body>
+    <div class="container">
+        <ul id="conversation">
+
+        </ul>
+
+        <form>
+
+            <input type="text" name="" id="message" />
+            <button type="button" class="btn btn-success" id="btn_send"> Send </button>
+
+        </form>
+    </div>
+
+    <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+    <script type="text/javascript">
+        //Connect
+        var socket = io.connect("http://192.168.100.9:3000");
+
+        socket.on("connect", function(){
+            console.log("Connected to Server");
+            var username = prompt("What is your name?");
+
+            // Send username to server
+            socket.emit("add_user", username);
+        });
+
+        // Listen update message event
+        socket.on("update_message", function(data){
+            $("#conversation").append("<li> <b>" + data.sender + ": </b>" + data.message + "</li>");
+        });
+
+        $("#btn_send").click(function(e){
+            var message = $("#message").val();
+            $("#message").val("");
+
+            if(message.trim().length != 0){
+                socket.emit("send_message", message);
+            }
+        });
+
+        $("#message").keypress(function(e){
+            if(e.which == 13){
+                $("#btn_send").trigger("click");
+            }
+        });
+
+        $("form").submit(function(){
+            return false;
+        });
+
+    </script>
+
+</body>
+</html>
+
+
+
