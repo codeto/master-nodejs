@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="bower_libs/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/hadl.css">
+	<script type="text/javascript" src="bower_libs/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="bower_libs/bootstrap/dist/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div style='bottom: 10px;left: 50%;position: fixed;width: 50%;padding:10px;border:1px solid #cecece;box-shadow: 1px 1px 1px #cecece'>
+		<ul id="conversation">
+		
+		</ul>
+		<form>
+			<input type="text" class="form-control" name="" id="messages">
+			<input type="submit" class="form-control btn-send" name="txtsubmit" value="Submit">
+		</form>
+</div>
+<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+<script type="text/javascript">
+	var socket = io.connect("http://localhost:3000");
+	socket.on("connect",function(){
+		console.log("connected to server");
+		var username = prompt("What is your name?");
+		//send username to server
+		socket.emit("add_user",username);
+
+		
+	});
+
+	socket.on("update_message",function(data){
+		$('#conversation').append("<li>"+data.sender + "<br>" + data.message +"</li>");
+	});
+
+	$(".btn-send").click(function(){
+		var message = $("#messages").val();
+		//can than de duplicate
+		$("#messages").val("");
+		if(message.trim().length != 0){
+			socket.emit("message_send",message);
+		}
+
+	});
+
+	$("#messages").keypress(function(e){
+		if (e.which == 13){
+			$(".btn-send").trigger("click");
+		}
+	});
+
+	$('form').submit(function(e){
+		return false;
+	});
+</script>
+</body>
+</html>

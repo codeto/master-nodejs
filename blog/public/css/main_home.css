@@ -1,0 +1,81 @@
+.main-hadl{
+	padding: 10px;
+    border: 1px solid #cecece;
+    border-radius: 2px;
+    box-shadow: 1px 1px 1px #cecece;
+  /*  margin-left: 10px;*/
+    margin-bottom: 10px;
+}
+.content-hadl{
+	border-bottom: 1px solid #cecece;
+    padding: 10px;
+    margin: 10px;
+}
+#Comment{
+	font-size: 11px;
+}
+#day{
+    font-style: italic;
+}
+.hadl-menu{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #a7a7a7;
+    margin-top:22px;
+    margin-bottom:22px;
+}
+.hadl-menu>li{
+    float: left;
+}
+.hadl-menu>li a{
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+.hadl-menu>li a:hover{
+    background-color: #111;
+}
+.hadl-input-padding{
+    margin-bottom: 10px;
+}
+.hadl-footer{
+    border-top: 2px dotted #cecece;
+    padding: 25px;
+    margin-top: 35px;
+    margin-bottom: 5px;
+    box-shadow: 1px 1px 1px;
+    background: #eaeaea;
+}
+.hadl-main-menu{
+    margin-bottom: 10px;
+    background: #dcdcdc;
+    box-shadow: 1px 1px 1px #cecece;
+}
+@import "compass/css3";
+
+.star-rating {
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+  }
+  .star {
+    padding: 1px;
+    color: #ddd;
+    font-size: 20px;
+    text-shadow: .05em .05em #aaa;
+    list-style-type: none;
+    display: inline-block;
+    cursor: pointer;
+
+    &.filled {
+      color: #fd0;
+    }
+  }
+  h2{
+    text-transform: uppercase !important;
+    font-size:16px !important;
+  }

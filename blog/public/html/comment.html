@@ -1,0 +1,31 @@
+<section id='Comment' class="col-lg-12 col-md-12 col-sm-12" ng-show="panel.isSelected(2)">
+
+ <h2>Comment</h2>
+      <ul>
+        <li ng-repeat="review in post.reviews">
+          <blockquote>
+            <b> {{review.stars }} Stars </b>: {{review.comment }} </br>
+            {{review.emai }} - {{review.time | date:'MM/dd/yyyy - h:mma' }}
+          </blockquote>
+        </li>
+      </ul>
+  		<form name="reviewForm" ng-submit="cmt.addComment(post)">
+      <blockquote>
+        <b>{{cmt.review.stars }} Stars</b>: {{cmt.review.comment }} </br>
+        {{cmt.review.emai }} - {{cmt.review.time | date:'MM/dd/yyyy @ h:mma'}}
+      </blockquote>
+      <p>
+        <select class='col-lg-12 col-md-12 col-sm-12 form-control hadl-input-padding' ng-model='cmt.review.stars'>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select></p>
+	  		<p><input class='col-lg-12 col-md-12 col-sm-12 form-control hadl-input-padding' ng-model="cmt.review.emai" name='txtemail' type="email" placeholder="Email"></p>
+	  		<p><textarea class='col-lg-12 col-md-12 col-sm-12 form-control hadl-input-padding' ng-model="cmt.review.comment"  name='txtcomment' placeholder="Give us comment" cols="3 rows="3" "></textarea></p>
+	  		
+	  	<p><button type='submit' class='btn btn-success' >Submit</button></p>
+  		</form>
+     
+    </section>

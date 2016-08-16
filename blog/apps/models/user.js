@@ -107,6 +107,7 @@ exports.deleteUser = function(user){
 
 	return defer.promise;
 }
+
 exports.GetUserByEmail = function(email){
 
 	var defer = q.defer();
@@ -162,12 +163,6 @@ exports.UpdatePostByPost = function(post){
 	var defer = q.defer();
 
 	mongo_conn.then(function(db){
-
-		console.log(post);
-
-		console.log(query);
-
-		console.log(objId);
 
 		var this_post = db.collection('post');
 

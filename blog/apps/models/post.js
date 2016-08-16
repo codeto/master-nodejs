@@ -3,30 +3,22 @@ var q = require('q');
 var mongo_db = require("../common/mongodb");
 
 
-var ObjectId = require('mongodb').ObjectId;
-
 var mongo_conn = mongo_db.getConnection();
 
 
-exports.UpdatePost = function(post){
+exports.UpdatePost = function(params){
 
-	var query = {"_id":post.id};
+	var query = {"_id": require("mongodb").ObjectID(params.id) };
 
 	var defer = q.defer();
 
-	delete post.id;
+	delete params.id;
 
 	mongo_conn.then(function(db){
 
-		// console.log(post);
+		var post = db.collection('post');
 
-		// console.log(query);
-
-		// console.log(objId);
-
-		var this_post = db.collection('post');
-
-		this_post.updateOne(query,{$set:post},function(err,docs){
+		post.updateOne(query,{$set:params},function(err,docs){
 
 			if(err){
 				defer.reject(err);
@@ -36,6 +28,64 @@ exports.UpdatePost = function(post){
 
 		});
 
+	});
+
+	return defer.promise;
+};
+exports.CountElement = function(){
+
+
+	var defer = q.defer();
+
+	mongo_conn.then(function(db){
+
+		var post = db.collection('post');
+
+		post.find({}).toArray(function(err,docs){
+
+			if(err) defer.reject(err);
+			else defer.resolve(docs);
+		});
+
+	});
+
+	return defer.promise;
+
+}
+exports.AddOnePost = function(article){
+
+	var defer = q.defer();
+
+	mongo_conn.then(function(db){
+
+		var post = db.collection('post');
+
+		post.insert(article,function(err,docs){
+
+			if(err) defer.reject(err);
+			else defer.resolve(docs);
+		});
+
+	});
+
+	return defer.promise;
+}
+exports.deletePost = function(posts){
+
+	var defer = q.defer();
+
+	mongo_conn.then(function(db){
+
+		var post = db.collection('post');
+
+		post.deleteOne(posts,function(err,result){
+			if(err){
+				defer.reject(err);
+			}else{
+				defer.resolve(result);
+			}
+		})
+		
 	});
 
 	return defer.promise;

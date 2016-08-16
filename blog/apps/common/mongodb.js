@@ -11,8 +11,10 @@ var MongoClient = mongodb.MongoClient;
 var mongo_host = config.get("mongodb.host");
 var mongo_port = config.get("mongodb.port");
 var mongo_db = config.get("mongodb.database");
+var mongo_pass = config.get("mongodb.pass");
+var mongo_user = config.get("mongodb.user");
 
-var url = "mongodb://" + mongo_host + ":"+ mongo_port + "/" + mongo_db;
+var url = "mongodb://" + mongo_user + ":" + mongo_pass +"@" + mongo_host + ":"+ mongo_port + "/" + mongo_db;
 
 function getConnection(){
 	var defer = q.defer();

@@ -6,6 +6,7 @@ var mysql = require('mysql');
 
 var session = require('express-session');
 
+var socketio = require('socket.io');
 
 var bodyParser = require("body-parser");
 
@@ -21,7 +22,7 @@ app.use(session({
 	resave:false,
 	saveUninitialized:true,
 	cookie:{secure:true},
-	expires:360000
+	expires:3600000
 }));
 
 var controllers = require(__dirname + "/apps/controllers");
@@ -43,7 +44,10 @@ app.set('view engine','ejs');
 var host = config.get('server.host');
 var port = config.get('server.port');
 
-app.listen(port,host,function(){
+var server = app.listen(port,host,function(){
 	console.log('Server is running on port 3000');
-})
+});
 
+//init socket
+var io = socketio(server);
+var socketcontrol = require("./apps/common/sockecont")(io);

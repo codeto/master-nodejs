@@ -41,17 +41,32 @@ $('.dl-ajax-act').click(function(){
 		}
 	} else if (act == 'Add'){
 		$('.adduser').modal();
+	} else if (act == 'Remove-Post'){
+		if (confirm('Do you want delete this ?')){
+			$.ajax({
+				url:"http://localhost:3000/act-api",
+				data:{act:act,id:uid},
+				type:"DELETE",
+				dataType:"JSON",
+				success:function(response){
+					if (response.kq == 1){
+						$('.notice').html("Done");
+						$('.notice').html("");
+						$('.'+uid).remove();
+						$('.notice').css('background-color','');
+					}
+				}
+			});
+		}
 	}
 });
 $('#frmpost').submit(function(e){
 	e.preventDefault();
 	var data = $(this).serialize();
 	var base_url = location.protocal + "//" + document.domain + ":" + location.port;
-
-	console.log(base_url);
 	
 	$.ajax({
-		url:'http://localhost:3000/admin/edit-post',
+		url:base_url + 'admin/edit-post',
 		data:data,
 		type:"PUT",
 		dataType:"JSON",

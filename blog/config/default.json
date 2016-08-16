@@ -11,12 +11,21 @@
 		"password":""
 	},
 	"mongodb":{
+		//user in localhost is root ??
+		"user":"",
 		"host":"localhost",
 		"port":27017,
-		"database":"haanhduclinh"
+		"database":"haanhduclinh",
+		"pass":""
 
 	},
 	"session":{
 		"secret_key":"12345"
+	},
+	"redis":{
+		"host":"139.59.224.239",
+		"port":6379,
+		"expire":3600,
+		"pass":"linhdaica@"
 	}
 }

@@ -1,8 +1,12 @@
 var express = require('express');
+var mongodb = require("mongodb");
 
 var router = express.Router();
 
+var session = require("../common/session");
+
 var users_model = require('../models/user');
+var posts_model = require('../models/post');
 
 
 //authentical
@@ -29,34 +33,38 @@ router.get('/login',function(req,res){
 })
 
 router.post('/login',function(req,res){
+
 	var params = req.body;
 
 	var result = users_model.GetUserByEmail(params.txtusername);
 
 	result.then(function(users){
+
 		if (!users || users.length == 0){
 			var data = {
 				error:"User is not exits"
 			}
-			res.render("backend/pages/admin",{data:data});
+			res.render("backend/pages/login",{data:data});
 		} else {
 			var user = users[0];
 			if (user.password != md5(params.txtpassword)){
 				var data = {
 					error:"Your password is wrong!"
 				}
-				res.render("backend/pages/admin",{data:data});
+				res.render("backend/pages/login",{data:data});
 			}else {
-				req.session.user = user;
-				res.redirect('/admin/home');
+				//req.session.user = user;
+				session.set("user",'1',1800);
+
+				res.redirect('/admin/');
 			}
 
 		}
-	})
-})
+	});
+});
 
 
-var ObjectId = require('mongodb').ObjectID;
+//var mongodb = require('mongodb');
 
 router.post('/signup',function(req,res){
 
@@ -125,8 +133,10 @@ router.post('/act-api',function(req,res){
 
 	if (act == 'Remove'){
 		var user = {
-			"_id":ObjectId(id)
+			"_id":mongodb.ObjectId(id)
 		}
+		//console.log(user);
+
 		stt = users_model.deleteUser(user);
 		res.json({'kq':1});
 		// console.log(stt);
@@ -142,11 +152,24 @@ router.post('/act-api',function(req,res){
 		res.json({'kq':1});
 	}
 });
+router.delete('/act-api',function(req,res){
+	var params = req.body;
 
+
+	var post = {
+		_id:mongodb.ObjectId(params.id)
+	};
+
+	//console.log(post);
+
+	posts_model.deletePost(post);
+	res.json({'kq':1});
+
+});
 router.get('/delete',function(req,res){
 
 	var user = {
-		"_id":ObjectId("579720fc3b95372f405a6756")
+		"_id":mongodb.ObjectId("579720fc3b95372f405a6756")
 	};
 	//console.log(user);
 
@@ -155,6 +178,42 @@ router.get('/delete',function(req,res){
 });
 
 router.get('/',function(req,res){
-	res.send('This is homepage');
-})
+	res.render("frontend/pages/index");
+});
+router.post('/post',function(req,res){
+	var post = users_model.GetAllPost();
+	post.then(function(data){
+		res.json(data);
+	}).catch(function(err){
+		res.json({err:err});
+	});
+});
+
+router.get("/post/:id",function(req,res){
+
+	var id = params.id;
+
+	var data = users_model.GetPostById(id);
+	
+	data.then(function(posts){
+		var post = posts[0];
+
+		var data = {
+			error:false,
+			post:post,
+			title:"Edit post"
+		};
+		res.render("frontend/pages/edit",{data:data});
+	}).catch(function(err){
+		var data = {
+			error:err
+		};
+		res.render("backend/pages/edit",{data:data});
+	});
+
+});
+
+router.get("/chat",function(req,res){
+		res.render("frontend/pages/chat");
+});
 module.exports = router;

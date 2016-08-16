@@ -31,7 +31,7 @@
         <div id="page-wrapper" class='box-hadl'>
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Post Manager</h1>
+                    <h1 class="page-header">Post manager</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -40,12 +40,12 @@
     <table class="table table-striped table-bordered table-hover" id="dataTables-example">
         <thead>
             <tr>
-                    <td>#</td>
-                    <td>Title</td>
-                    <td>Content</td>
-                    <td>Author</td>
-                    <td>Category</td>
-                    <td>#</td>
+                    <td class='col-sm-1 col-md-1 col-lg-1'>#</td>
+                    <td class='col-sm-2 col-md-2 col-lg-2'>Title</td>
+                    <td class='col-sm-5 col-md-5 col-lg-5'>Content</td>
+                    <td class='col-sm-1 col-md-1 col-lg-1'>Author</td>
+                    <td class='col-sm-1 col-md-1 col-lg-1'>Category</td>
+                    <td class='col-sm-2 col-md-2 col-lg-2'>#</td>
                 </tr>
         </thead>
        <tbody>
@@ -56,7 +56,9 @@
                     <td><%= data[i].Content %></td>
                     <td><%= data[i].author %></td>
                     <td><%= data[i].category %></td>
-                    <td><a href='http://localhost:3000/admin/edit-post/<%=data[i]._id%>' title='Edit' data-id='<%= data[i]._id %>' data-act='Edit' class='dl-ajax-act' ><span class="glyphicon glyphicon-new-window hadl-span"  aria-hidden="true"></span></a>  <a title='Remove' data-act='Remove' href='javascript:void(0)' data-id='<%= data[i]._id %>' class='dl-ajax-act' ><span class="glyphicon glyphicon-trash hadl-span"  aria-hidden="true"></span></a>  <a data-act='Add' title='Add' href='javascript:void(0)' data-id='<%= data[i]._id %>' class='dl-ajax-act' ><span class="glyphicon glyphicon-plus hadl-span"  aria-hidden="true"></span></a>
+                    <td><a href='http://localhost:3000/admin/edit-post/<%=data[i]._id %>' title='Edit' data-id='<%= data[i]._id %>' data-act='Edit' class='dl-ajax-act' ><span class="glyphicon glyphicon-new-window hadl-span"  aria-hidden="true"></span></a>  
+                    <a title='Remove' data-act='Remove-Post' href='javascript:void(0)' data-id='<%= data[i]._id %>' class='dl-ajax-act' ><span class="glyphicon glyphicon-trash hadl-span"  aria-hidden="true"></span></a>  
+                    <a data-act='Add' title='Add' href='http://localhost:3000/admin/post/new'><span class="glyphicon glyphicon-plus hadl-span"  aria-hidden="true"></span></a>
                     </td>
                 </tr>
                 
