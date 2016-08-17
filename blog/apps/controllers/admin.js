@@ -2,7 +2,8 @@ var express = require('express');
 
 var router = express.Router();
 
-var session = require("../common/session");
+//var session = require("../common/session");
+var session = require('express-session');
 
 var users_model = require("../models/user.js");
 
@@ -10,19 +11,23 @@ var post_model = require('../models/post.js');
 //connection.connect();
 // localhost:3000/admin/
 router.get('/',function(req,res){
-	//res.json({'message':'This is Admin page'});
-	//console.log(req.session.user);
-	var user = session.get("user");
-	user.then(function(reply){
-		if (reply){
-			res.render("backend/pages/admin");
-		}else{
-			res.redirect('/login');
-		}
-	}).catch(function(err){
+	//old code with redis - begin
+	// var user = session.get("user");
+	// user.then(function(reply){
+	// 	if (reply){
+	// 		res.render("backend/pages/admin");
+	// 	}else{
+	// 		res.redirect('/login');
+	// 	}
+	// }).catch(function(err){
+	// 	res.redirect('/login');
+	// });
+	//old code with redis - end
+	if(req.session.user){
+		res.render("backend/pages/admin");
+	}else{
 		res.redirect('/login');
-	});
-	
+	}
 
 	
 });
@@ -189,12 +194,11 @@ router.post('/post/new',function(req,res){
 
 	var count_post = post_model.CountElement();
 
-	count_post.then(function(table_count){
+	// count_post.then(function(table_count){
 
-		var id = table_count.length + 1;
+	// 	var id = table_count.length + 1;
 
 		var post = {
-			id:id.trim(),
 			title:params.txtTitle,
 			author:params.txtAuthor,
 			Content:params.txtContent,
@@ -223,13 +227,13 @@ router.post('/post/new',function(req,res){
 
 
 
-	}).catch(function(err){
-		var template_data = {
-				error:false,
-				title:'Error on databse.'
-			};
-			res.render("backend/pages/edit",{data:template_data});
-	});
+	// }).catch(function(err){
+	// 	var template_data = {
+	// 			error:false,
+	// 			title:'Error on databse.'
+	// 		};
+	// 		res.render("backend/pages/edit",{data:template_data});
+	// });
 
 });
 router.put('/post/edit',function(req,res){
@@ -247,7 +251,7 @@ router.put('/post/edit',function(req,res){
 		"Update":now
 	};
 
-	//console.log(posts);
+	console.log(posts);
 
 	var data = post_model.UpdatePost(posts);
 	data.then(function(data){

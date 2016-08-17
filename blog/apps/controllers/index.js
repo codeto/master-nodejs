@@ -3,11 +3,14 @@ var mongodb = require("mongodb");
 
 var router = express.Router();
 
-var session = require("../common/session");
+var session = require("express-session");
+
+
+var redis_db = require('../common/redis_db');
+var client = redis_db.getClient();
 
 var users_model = require('../models/user');
 var posts_model = require('../models/post');
-
 
 //authentical
 // app.use(function(req,res,next){
@@ -17,6 +20,9 @@ var posts_model = require('../models/post');
 // 		res.redirect('/login');
 // 	}
 // });
+
+//session redis begin
+
 
 var md5 = require('md5');
 
@@ -54,8 +60,10 @@ router.post('/login',function(req,res){
 				res.render("backend/pages/login",{data:data});
 			}else {
 				//req.session.user = user;
-				session.set("user",'1',1800);
-
+				//session.set("user",'1',1800);
+				console.log(req.session);
+				req.session.user = user.txtusername;
+console.log('b');
 				res.redirect('/admin/');
 			}
 

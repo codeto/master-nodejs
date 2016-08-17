@@ -6,24 +6,40 @@ var mysql = require('mysql');
 
 var session = require('express-session');
 
+var redisStore = require('connect-redis')(session);
+
+
 var socketio = require('socket.io');
 
 var bodyParser = require("body-parser");
 
 var app = express();
 
+app.use(session({
+    secret: 'ssshhhhh',
+    // create new redis store.
+    store: new redisStore({ host: config.get("redis.host"), port: config.get("redis.port"), client: client,ttl :  260}),
+    saveUninitialized: false,
+    resave: false
+}));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.set('trust proxy',1);
-app.use(session({
-	secret:config.get('session.secret_key'),
-	resave:false,
-	saveUninitialized:true,
-	cookie:{secure:true},
-	expires:3600000
-}));
+// app.set('trust proxy',1);
+// app.use(session({
+// 	secret:config.get('session.secret_key'),
+// 	resave:false,
+// 	saveUninitialized:true,
+// 	cookie:{secure:true},
+// 	expires:3600000
+// }));
+
+var redis_db = require('./apps/common/redis_db');
+
+var client = redis_db.getClient();
+
+
 
 var controllers = require(__dirname + "/apps/controllers");
 

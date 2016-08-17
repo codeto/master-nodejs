@@ -4,8 +4,8 @@
 <head>
 
 <% include ../partials/headera %>
-<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
-<script>tinymce.init({ selector:'textarea' });</script>
+<!-- <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+<script>tinymce.init({ selector:'textarea' });</script> -->
 </head>
 
     <div id="wrapper">
@@ -45,7 +45,7 @@
           <%if (data && data.title){ %> <%=data.title %> <%}%>
         </div>
         <!-- /.panel-heading -->
-    <form method="POST" id='frmpost-hadl' action="http://localhost:3000/admin/post/new">
+    <form method="POST" id='frmpost-hadl' action="/admin/post/new">
         <div class="panel-body">
             <div class="table-responsive">
                 <table class="table">
@@ -119,7 +119,6 @@
             type:"PUT",
             dataType:"JSON",
             success:(function(res){
-                console.log(res);
                 if(res.kq == '1') $('#notification').html("<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><strong>Success!</strong> Update success! </div>");
                 else $('#notification').html("<div class='alert alert-danger'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><strong>Danger!</strong> Something wrong</div>");
             })

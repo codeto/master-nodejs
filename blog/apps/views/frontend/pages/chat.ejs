@@ -2,36 +2,117 @@
 <html>
 <head>
 	<link rel="stylesheet" type="text/css" href="bower_libs/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="/css/hadl.css">
+    <link rel="stylesheet" type="text/css" href="css/main_home.css">
 	<script type="text/javascript" src="bower_libs/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="bower_libs/bootstrap/dist/js/bootstrap.min.js"></script>
 </head>
 <body>
-<div style='bottom: 10px;left: 50%;position: fixed;width: 50%;padding:10px;border:1px solid #cecece;box-shadow: 1px 1px 1px #cecece'>
-		<ul id="conversation">
-		
-		</ul>
-		<form>
-			<input type="text" class="form-control" name="" id="messages">
-			<input type="submit" class="form-control btn-send" name="txtsubmit" value="Submit">
-		</form>
+<div class='col-md-12'>
+		<div class="panel panel-default">
+	        <div class="panel-heading">
+	           CHAT TO
+	        </div>
+	        <!-- /.panel-heading -->
+		    <form method="POST" id="private-chat" >
+		        <div class="panel-body">
+		            <div class="table-responsive">
+		                <table class="table">
+		                   	<tbody>
+		                       
+		                        <tr>
+		                        	<td colspan="2">
+		                        		<ul id='private_chat_conversation'></ul>
+		                        	</td>
+		                        </tr>
+		                         <tr>
+		                            <td>Nickname</td>
+		                            <td><input class="form-control chat-to" type="text" name="txtchatto" value=""></td> 
+		                        </tr>
+		                        <tr>
+		                        	<td colspan="2"><input class="btn btn-success" type="submit" value="Login"><span class='send-message'>Send</span></td>
+		                        </tr>
+		                    </tbody>
+		                </table>
+		            </div>
+		            <!-- /.table-responsive -->
+		        </div>
+		        <!-- /.panel-body -->
+		    </form>
+	    </div>
+    </div>
+
+	<div class='hadl-chat-panel'>
+		<div class="panel panel-default">
+	        <div class="panel-heading">
+	           SET NICKNAME
+	        </div>
+	        <!-- /.panel-heading -->
+		    <form method="POST" id="frm-chat-from" >
+		        <div class="panel-body">
+		            <div class="table-responsive">
+		                <table class="table">
+		                   	<tbody>
+		                        <tr>
+		                            <td>Nickname</td>
+		                            <td><input class="form-control username" type="text" name="txtId" value=""></td>
+		                        </tr>
+		                        <tr>
+		                        	<td colspan="2"><input class="btn btn-success" type="submit" value="Login"></td>
+		                        </tr>
+		                    </tbody>
+		                </table>
+		            </div>
+		            <!-- /.table-responsive -->
+		        </div>
+		        <!-- /.panel-body -->
+		    </form>
+	    </div>
+    </div>
+<div class='col-lg-12 col-md-12 col-sm-12 main-chat'>
+		<span class="col-lg-12 col-md-12 col-sm-12 hadl-input-padding"><b>HADL CHAT</b></span>
+		<div class='col-lg-8 col-md-8 col-sm-6'>
+			<ul id="conversation" class='hadl-input-padding scollable-class'>
+			
+			</ul>
+			<form>
+				<input type="text" class="form-control hadl-input-padding" name="" id="messages">
+				<input type="submit" class="form-control btn-send hadl-input-padding btn-success" name="txtsubmit" value="Submit">
+			</form>
+		</div>
+		<div class='col-lg-4 col-md-4 col-sm-6'>
+			<ul id="available_id" class='hadl-input-padding scollable-class'>
+			</ul>
+		</div>
 </div>
 <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
 <script type="text/javascript">
 	var socket = io.connect("http://localhost:3000");
 	socket.on("connect",function(){
 		console.log("connected to server");
-		var username = prompt("What is your name?");
+		$('#frm-chat-from').submit(function(e){
+			e.preventDefault();
+			var username = $('.username').val();
+			socket.emit("add_user",username);
+			$(".hadl-chat-panel").remove();
+		});
+		//var username = prompt("What is your name?");
 		//send username to server
-		socket.emit("add_user",username);
-
-		
 	});
 
 	socket.on("update_message",function(data){
-		$('#conversation').append("<li>"+data.sender + "<br>" + data.message +"</li>");
+		$('#conversation').append("<li>"+data.sender + " : " + data.message +"</li>");
+		$('#available_id').html("...updating");
+		$('#available_id').html("<b>ONLINE</b>");
+		for (var i = 0;i < data.username.length;i++){
+			$('#available_id').append("<li>"+data.username[i]+"</li>");
+		}
+		$('#conversation').scrollTop($('#conversation')[0].scrollHeight);
 	});
 
+	socket.on("update_chat",function(data){
+		$('#conversation').append("<li>"+data.sender + " : " + data.message +"</li>");
+		$('#conversation').scrollTop($('#conversation')[0].scrollHeight);
+	});
 	$(".btn-send").click(function(){
 		var message = $("#messages").val();
 		//can than de duplicate
@@ -51,6 +132,49 @@
 	$('form').submit(function(e){
 		return false;
 	});
+	//private chat
+	$('#private-chat').submit(function(e){
+		e.preventDefault();
+		var username = $(".chat-to").val();
+		//console.log(username);
+		socket.emit('join', {email: username});
+
+		//socket.emit("private_message",username,"1");
+
+		socket.on("join",function(data){
+			$('#private_chat_conversation').append("<li><b style='color:green'>"+data.sender + "</b> : " + data.message +"</li>");
+			$('#conversation').scrollTop($('#conversation')[0].scrollHeight);
+		});
+
+		socket.on("new_msg",function(data){
+			$('#private_chat_conversation').append("<li><b style='color:green'>"+data.sender + "</b> : " + data.message +"</li>");
+			$('#conversation').scrollTop($('#conversation')[0].scrollHeight);
+		});
+	});
+	$(".send-message").click(function(){
+		socket.emit("private_message",{email:"lien"});
+	});
+	$("#available_id").delegate("li","click",function(){
+		var username = $(this).html();
+		$(this).css({"color":"red"});
+		console.log(username);
+		//emit username to server
+		socket.emit("choose_user",username);
+	});
+
+	// $('.private-chat').click(function(){
+	// 	console.log('123');
+	// 	var username = $(this).data(id);
+
+	// 	console.log(username);
+
+	// 	socket.emit("private_message",username,"1");
+
+	// 	socket.on("private_message",function(data){
+	// 		$('#conversation').append("<li><b style='color:green'>"+data.sender + "</b> : " + data.message +"</li>");
+	// 		$('#conversation').scrollTop($('#conversation')[0].scrollHeight);
+	// 	});
+	// });
 </script>
 </body>
 </html>

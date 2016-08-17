@@ -19,7 +19,7 @@ exports.UpdatePost = function(params){
 		var post = db.collection('post');
 
 		post.updateOne(query,{$set:params},function(err,docs){
-
+console.log(query);
 			if(err){
 				defer.reject(err);
 			}else{

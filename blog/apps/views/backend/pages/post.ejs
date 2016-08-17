@@ -32,6 +32,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header">Post manager</h1>
+                    <a title='Add' href='/admin/post/new'>[ Add ]</a>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -56,9 +57,9 @@
                     <td><%= data[i].Content %></td>
                     <td><%= data[i].author %></td>
                     <td><%= data[i].category %></td>
-                    <td><a href='http://localhost:3000/admin/edit-post/<%=data[i]._id %>' title='Edit' data-id='<%= data[i]._id %>' data-act='Edit' class='dl-ajax-act' ><span class="glyphicon glyphicon-new-window hadl-span"  aria-hidden="true"></span></a>  
+                    <td><a href='/admin/edit-post/<%=data[i]._id %>' title='Edit' data-id='<%= data[i]._id %>' data-act='Edit' class='dl-ajax-act' ><span class="glyphicon glyphicon-new-window hadl-span"  aria-hidden="true"></span></a>  
                     <a title='Remove' data-act='Remove-Post' href='javascript:void(0)' data-id='<%= data[i]._id %>' class='dl-ajax-act' ><span class="glyphicon glyphicon-trash hadl-span"  aria-hidden="true"></span></a>  
-                    <a data-act='Add' title='Add' href='http://localhost:3000/admin/post/new'><span class="glyphicon glyphicon-plus hadl-span"  aria-hidden="true"></span></a>
+                    <a data-act='Add' title='Add' href='/admin/post/new'><span class="glyphicon glyphicon-plus hadl-span"  aria-hidden="true"></span></a>
                     </td>
                 </tr>
                 
