@@ -12,16 +12,39 @@
       form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 90%; }
       form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
       form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
-      #conversation { list-style-type: none; margin: 0; padding: 0; }
+      #conversation {
+        list-style-type: none; margin: 0; padding: 5px 10px;
+        float: left;
+
+    }
       #conversation li { padding: 5px 10px; }
       #conversation li:nth-child(odd) { background: #eee; }
+
+        #list-users {
+            float: left;
+            width: 20%;
+            padding: 5px 10px;
+            border-right: 1px solid;
+            min-height: 200px;
+        }
+
+        #list-users li{
+            cursor: pointer;
+        }
 
 </style>
 <body>
     <div class="container">
-        <ul id="conversation">
+        <div>
+            <ul id="list-users">
 
-        </ul>
+            </ul>
+            <ul id="conversation">
+
+            </ul>
+
+            <div style="clear: both;"></div>
+        </div>
 
         <form>
 
@@ -34,19 +57,32 @@
     <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
     <script type="text/javascript">
         //Connect
-        var socket = io.connect("http://192.168.100.9:3000");
+        var socket = io.connect("http://localhost:3000");
 
         socket.on("connect", function(){
             console.log("Connected to Server");
             var username = prompt("What is your name?");
 
             // Send username to server
+            socket.username = username;
             socket.emit("add_user", username);
         });
 
         // Listen update message event
         socket.on("update_message", function(data){
             $("#conversation").append("<li> <b>" + data.sender + ": </b>" + data.message + "</li>");
+        });
+
+        // Listen update_user event
+        socket.on("update_users", function(usernames){
+            console.log(usernames);
+            var html = "";
+            for (var i = 0; i < usernames.length; i++){
+                if(usernames[i] != socket.username){
+                    html += "<li>" + usernames[i] + "</li>";
+                }
+            }
+            $("#list-users").html(html);
         });
 
         $("#btn_send").click(function(e){
@@ -66,6 +102,15 @@
 
         $("form").submit(function(){
             return false;
+        });
+
+        $("#list-users").delegate("li", "click", function(){
+            var username = $(this).html();
+            console.log(username);
+            $(this).css("color", "red");
+
+            // Emit user to server
+            socket.emit("choose_user", username);
         });
 
     </script>
