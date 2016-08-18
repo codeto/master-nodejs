@@ -1,7 +1,7 @@
 var express = require("express");
 var router = express.Router();
 
-var session = require("../common/session");
+// var session = require("../common/session");
 
 var users_model = require("../models/users");
 

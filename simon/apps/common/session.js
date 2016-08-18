@@ -2,6 +2,7 @@ var q = require("q");
 var config = require("config");
 
 var redis_db = require("./redis_db");
+// var redis_db = require("./mongo_database");
 
 var client = redis_db.getClient();
 

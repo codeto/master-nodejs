@@ -11,9 +11,9 @@
         "password": "2Lj2UkqXymn6"
     },
     "mongo": {
-        "host": "ds161505.mlab.com",
-        "port": 61505,
-        "database": "cuongbn"
+        "host": "localhost",
+        "port": 27017,
+        "database" : "blog_codeto"
     },
     "session": {
         "secret_key": "12345"
