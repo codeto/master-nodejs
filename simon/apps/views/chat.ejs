@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat App</title>
+</head>
+
+<%- include layout/head %>
+
+<style type="text/css">
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font: 13px Helvetica, Arial; }
+      form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 90%; }
+      form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
+      form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
+      #conversation {
+        list-style-type: none; margin: 0; padding: 5px 10px;
+        float: left;
+
+    }
+      #conversation li { padding: 5px 10px; }
+      #conversation li:nth-child(odd) { background: #eee; }
+
+        #list-users {
+            float: left;
+            width: 20%;
+            padding: 5px 10px;
+            border-right: 1px solid;
+            min-height: 200px;
+        }
+
+        #list-users li{
+            cursor: pointer;
+        }
+
+</style>
+<body>
+    <div class="container">
+        <div>
+            <ul id="list-users">
+
+            </ul>
+            <ul id="conversation">
+
+            </ul>
+
+            <div style="clear: both;"></div>
+        </div>
+
+        <form>
+
+            <input type="text" name="" id="message" />
+            <button type="button" class="btn btn-success" id="btn_send"> Send </button>
+
+        </form>
+    </div>
+
+    <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+    <script type="text/javascript">
+        //Connect
+        var socket = io.connect("http://localhost:3000");
+
+        socket.on("connect", function(){
+            console.log("Connected to Server");
+            var username = prompt("What is your name?");
+
+            // Send username to server
+            socket.username = username;
+            socket.emit("add_user", username);
+        });
+
+        // Listen update message event
+        socket.on("update_message", function(data){
+            $("#conversation").append("<li> <b>" + data.sender + ": </b>" + data.message + "</li>");
+        });
+
+        // Listen update_user event
+        socket.on("update_users", function(usernames){
+            console.log(usernames);
+            var html = "";
+            for (var i = 0; i < usernames.length; i++){
+                if(usernames[i] != socket.username){
+                    html += "<li>" + usernames[i] + "</li>";
+                }
+            }
+            $("#list-users").html(html);
+        });
+
+        $("#btn_send").click(function(e){
+            var message = $("#message").val();
+            $("#message").val("");
+
+            if(message.trim().length != 0){
+                socket.emit("send_message", message);
+            }
+        });
+
+        $("#message").keypress(function(e){
+            if(e.which == 13){
+                $("#btn_send").trigger("click");
+            }
+        });
+
+        $("form").submit(function(){
+            return false;
+        });
+
+        $("#list-users").delegate("li", "click", function(){
+            var username = $(this).html();
+            console.log(username);
+            $(this).css("color", "red");
+
+            // Emit user to server
+            socket.emit("choose_user", username);
+        });
+
+    </script>
+
+</body>
+</html>
+
+
+

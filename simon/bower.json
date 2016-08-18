@@ -1,0 +1,20 @@
+{
+  "name": "blog",
+  "description": "",
+  "main": "app.js",
+  "authors": [
+    "Cuong Ba"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/codeto/master-nodejs",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.6"
+  }
+}
