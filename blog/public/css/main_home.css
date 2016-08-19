@@ -120,3 +120,22 @@
   #available_id{
     padding: 25px;
   }
+  .chat-room-list li{
+    float:left;
+    padding:10px;
+    margin-right:10px;
+    border:1px solid #cecece;
+    box-shadow: 1px 1px 1px #cecece;
+    background: #a7a7a7;
+    border-radius: 2px;
+    list-style-type: none;
+    cursor: pointer;
+  }
+  .chat-room-list>li:hover{
+    background: black;
+    color:white;
+  }
+   .chat-room-list>li:active{
+    background: black;
+    color:white;
+  }

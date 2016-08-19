@@ -61,9 +61,9 @@ router.post('/login',function(req,res){
 			}else {
 				//req.session.user = user;
 				//session.set("user",'1',1800);
-				console.log(req.session);
-				req.session.user = user.txtusername;
-console.log('b');
+		
+				req.session.user = user.email;
+
 				res.redirect('/admin/');
 			}
 

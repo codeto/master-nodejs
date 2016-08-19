@@ -3,12 +3,27 @@ module.exports = function(io){
 	var users = {};
 	var abc = {};
 	var socketOfUsers = {};
+
+	var room_arr_1 = [];
+	var room_arr_2 = [];
+	var room_arr_3 = [];
+	var room_arr_4 = [];
+
+function check_element(arr,element){
+	var index = arr.indexOf(element);
+	if (index > -1) return true;
+	else return false;
+}
 	io.sockets.on("connection",function(socket){
 		console.log("have a new user connected");
 		//listen new user connect
 		socket.on("add_user",function(username){
 			socket.username = username;
-			usernames.push(username);
+
+			var check = check_element(usernames,username);
+			if (!check){
+				usernames.push(username);
+			}
 			socketOfUsers[username] = socket.id;
 		 // 	users[username] = socket.id;    // Store a reference to your socket ID
 			// abc[socket.id] = { username : username, socket : socket }; 
@@ -23,14 +38,7 @@ module.exports = function(io){
 
 			socket.emit("update_message",data);
 
-			//notify to other users
-			// var data = {
-			// 	sender:"SERVER",
-			// 	message:username + " have to join chat room",
-			// 	id:socket.id,
-			// 	username:username
-			// };
-			// socket.broadcast.emit("update_chat",data);
+			//notify other people
 			var data = {
 				sender:"SERVER",
 				message:username + " have to join chat room",
@@ -41,49 +49,168 @@ module.exports = function(io){
 		//listen event
 		socket.on("message_send",function(message){
 
-			//notify to myselt
-			var data = {
-				sender:"You",
-				message:message
-			};
-
-			socket.emit("update_chat",data);
-
 			//notify to other users
 			var data = {
 				sender:socket.username,
 				message:message
 			};
 			if(socket.friend){
+
+				//notify to myselt
+				var m = {
+					sender:"You",
+					message:message
+				};
+
+				socket.emit("update_chat",m);
+				//notify friend
 				socket.friend.emit("update_chat",data);
-			}else{
+
+			}else if(socket.room){
+				console.log('this is socket rom');
+				//notify to myselt
+				var m = {
+					sender:"You",
+					message:message
+				};
+
+				socket.emit("update_chat",m);
+
+				socket.broadcast.to(socket.room).emit("update_chat",data);
+
+			} else {
+				//notify to myselt
+				console.log('this is send to all people');
+				var m = {
+					sender:"You",
+					message:message
+				};
+
+				socket.emit("update_chat",m);
+				//notify all
 				socket.broadcast.emit("update_chat",data);
 			}
 			// socket.broadcast.emit("update_chat",data);
 			
 		});
+
 		//listen private id
-		socket.on('join', function(data) {
-			socket.join(data.email); // We are using room of socket io
+		socket.on('join', function(room) {
+			//remove username in hall begin
+
+			var index = usernames.indexOf(socket.username);
+			if (index > -1 ) {
+			    usernames.splice(index,1);
+			}
+			//remove username in hall end
+			//notice all friend in hall
+
+			socket.broadcast.emit("room_user",usernames);
+
+			if (socket.room){
+				if (socket.room != room){
+					//console.log('we leave old room is '+socket.currently_room);
+					socket.leave(socket.room);
+					//leave room event begin
+					switch (socket.room){
+						case 'Chat room 1':
+						
+							var index = room_arr_1.indexOf(socket.username);
+							if (index > -1) {
+							    room_arr_1.splice(index, 1);
+							}
+							var re_data = room_arr_1;
+							break;
+						case 'Chat room 2':
+						
+							var index = room_arr_2.indexOf(socket.username);
+							if (index > -1) {
+							    room_arr_2.splice(index, 1);
+							}
+							var re_data = room_arr_2;
+							break;
+						case 'Chat room 3':
+						
+							var index = room_arr_3.indexOf(socket.username);
+							if (index > -1) {
+							    room_arr_3.splice(index, 1);
+							}
+							var re_data = room_arr_3;
+							break;
+						case 'Chat room 4':
+						
+							var index = room_arr_4.indexOf(socket.username);
+							if (index > -1) {
+							    room_arr_4.splice(index, 1);
+							}
+							var re_data = room_arr_4;
+							break;
+						default:
+							var index = usernames.indexOf(socket.username);
+							if (index > -1) {
+							    usernames.splice(index, 1);
+							}
+							var re_data = usernames;
+							break;
+					}
+					 //notify to all people in new room
+	        		socket.broadcast.to(socket.room).emit("room_user",re_data);
+
+	        		var m = {
+						sender:"SERVER",
+						message:socket.username + " has left this room"
+					};
+	        		socket.broadcast.to(socket.room).emit("update_chat",m);
+					//leave chat room event end
+				}
+			}
+			//socket.join(room); // We are using room of socket io
+
+			socket.room = room;
+
 	        // Lookup the socket of the user you want to private message, and send them your message
-	        var data =
+	        if (room == 'Chat room 1'){
+	        	var index = room_arr_1.indexOf(socket.username);
+				if (index < 0) {
+				    room_arr_1.push(socket.username);
+				}
+	        	var re_data = room_arr_1;
+	        }else if (room == 'Chat room 2'){
+	        	var index = room_arr_2.indexOf(socket.username);
+				if (index < 0) {
+				    room_arr_2.push(socket.username);
+				}
+	        	var re_data = room_arr_2;
+	        }else if (room == 'Chat room 3'){
+	        	var index = room_arr_3.indexOf(socket.username);
+				if (index < 0) {
+				    room_arr_3.push(socket.username);
+				}
+	        	var re_data = room_arr_3;
+	        }else if (room == 'Chat room 4'){
+	        	var index = room_arr_4.indexOf(socket.username);
+				if (index < 0) {
+				    room_arr_4.push(socket.username);
+				}
+	        	var re_data = room_arr_4;
+	        }
+
+	        var data_1 =
 	            { 
-	                message : 'Connect to '+data.email, 
+	                message : 'Connect to '+room, 
 	                //sender : abc[socket.id].username 
 	                sender : "SERVER"
 	            };
-	        socket.emit("join",data);
+	            //console.log(data_1);
 
+	        socket.emit("join",data_1);
+	        //notify my self
+	        socket.emit("room_user",re_data);
+	        //notify to all people in new room
+	        socket.broadcast.to(socket.room).emit("room_user",re_data);
+	        //console.log(socket.room);
 	    });
 
-	    socket.on('private_message',function(data){
-	    	console.log(data);
-	    	  var sen_data = { 
-	                message : 'test private message', 
-	                sender : socket.username
-	            };
-	        socket.in(data.email).emit('new_msg', sen_data);
-	    });
 	    //private message send
 	    socket.on("choose_user",function(username){
 	    	//get friend socket
@@ -96,23 +223,19 @@ module.exports = function(io){
 	    	//set id cho thang ban cua minh
 	    	socket.friend = socket_friend;
 	    });
-		//listen disconect event
 		socket.on("disconnect",function(){
 			var data = {
 				sender:"SERVER",
 				username:usernames,
 				message:socket.username + " left chat room"
 			};
-
+			var index = usernames.indexOf(socket.username);
+			if (index > -1){
+				usernames.splice(index,1);
+			}
 			// delete socket.friend.friend;
 			// delete socket.friend;
-
-			var index = usernames.indexOf(socket.username);
-			if (index > -1) {
-			    usernames.splice(index, 1);
-			}
 			socket.broadcast.emit("update_message",data);
-
 		});
 
 	});

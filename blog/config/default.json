@@ -26,6 +26,6 @@
 		"host":"139.59.224.239",
 		"port":6379,
 		"expire":3600,
-		"pass":"linhdaica@"
+		"pass":""
 	}
 }

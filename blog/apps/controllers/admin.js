@@ -11,18 +11,7 @@ var post_model = require('../models/post.js');
 //connection.connect();
 // localhost:3000/admin/
 router.get('/',function(req,res){
-	//old code with redis - begin
-	// var user = session.get("user");
-	// user.then(function(reply){
-	// 	if (reply){
-	// 		res.render("backend/pages/admin");
-	// 	}else{
-	// 		res.redirect('/login');
-	// 	}
-	// }).catch(function(err){
-	// 	res.redirect('/login');
-	// });
-	//old code with redis - end
+
 	if(req.session.user){
 		res.render("backend/pages/admin");
 	}else{
@@ -37,9 +26,7 @@ router.get('/home',function(req,res){
 });
 
 router.get('/users',function(req,res){
-	var user = session.get("user");
-	user.then(function(reply){
-		if (reply){
+	if(req.session.user){
 			// this owner
 				var users = users_model.GetAllUsers();
 				users.then(function(data){
@@ -53,19 +40,10 @@ router.get('/users',function(req,res){
 		}else{
 			res.redirect('/login');
 		}
-	}).catch(function(err){
-		res.redirect('/login');
-	});
-
-
-
 	
 });
 router.get('/post',function(req,res){
-
-	var user = session.get("user");
-	user.then(function(reply){
-		if (reply){
+if(req.session.user){
 			// this owner
 				var users = users_model.GetAllPost();
 
@@ -80,18 +58,11 @@ router.get('/post',function(req,res){
 		}else{
 			res.redirect('/login');
 		}
-	}).catch(function(err){
-		res.redirect('/login');
-	});
 
-
-	
 });
 
 router.get('/user',function(req,res){
-	var user = session.get("user");
-	user.then(function(reply){
-		if (reply){
+	if(req.session.user){
 			// this owner
 				var users = users_model.GetAllUsers();
 
@@ -108,11 +79,6 @@ router.get('/user',function(req,res){
 		}else{
 			res.redirect('/login');
 		}
-	}).catch(function(err){
-		res.redirect('/login');
-	});
-
-
 });
 
 
@@ -121,49 +87,39 @@ router.get('/dashboard',function(req,res){
 });
 
 router.get("/edit-post/:id",function(req,res){
-	var user = session.get("user");
-	user.then(function(reply){
-		if (reply){
-			// this owner
-				var params = req.params;
-				var id = params.id;
+	if(req.session.user){
+		// this owner
+			var params = req.params;
+			var id = params.id;
 
-				var data = users_model.GetPostById(id);
-				
-				data.then(function(posts){
-					var post = posts[0];
+			var data = users_model.GetPostById(id);
+			
+			data.then(function(posts){
+				var post = posts[0];
 
-					var data = {
-						error:false,
-						post:post,
-						title:"Edit post"
-					};
-					res.render("backend/pages/edit",{data:data});
-				}).catch(function(err){
-					var data = {
-						error:err
-					};
-					res.render("backend/pages/edit",{data:data});
-				});
+				var data = {
+					error:false,
+					post:post,
+					title:"Edit post"
+				};
+				res.render("backend/pages/edit",{data:data});
+			}).catch(function(err){
+				var data = {
+					error:err
+				};
+				res.render("backend/pages/edit",{data:data});
+			});
 
-			//end this is owner
-		}else{
-			res.redirect('/login');
-		}
-	}).catch(function(err){
+		//end this is owner
+	}else{
 		res.redirect('/login');
-	});
-
-
-
+	}
 
 	
 });
 
 router.get('/post/new',function(req,res){
-	var user = session.get("user");
-	user.then(function(reply){
-		if (reply){
+	if(req.session.user){
 			// this owner
 					
 				var data = {
@@ -177,13 +133,6 @@ router.get('/post/new',function(req,res){
 		}else{
 			res.redirect('/login');
 		}
-	}).catch(function(err){
-		res.redirect('/login');
-	});
-
-
-
-
 
 });
 router.post('/post/new',function(req,res){
@@ -224,16 +173,6 @@ router.post('/post/new',function(req,res){
 			};
 			res.render("backend/pages/edit",{data:template_data});
 		});
-
-
-
-	// }).catch(function(err){
-	// 	var template_data = {
-	// 			error:false,
-	// 			title:'Error on databse.'
-	// 		};
-	// 		res.render("backend/pages/edit",{data:template_data});
-	// });
 
 });
 router.put('/post/edit',function(req,res){
